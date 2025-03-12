@@ -29,11 +29,11 @@ test {
 }
 
 application {
-    mainClass.set("VoyaTrip.voyatrip")
+    mainClass.set("VoyaTrip.voyaTrip")
 }
 
 shadowJar {
-    archiveBaseName.set("duke")
+    archiveBaseName.set("VoyaTrip")
     archiveClassifier.set("")
 }
 
