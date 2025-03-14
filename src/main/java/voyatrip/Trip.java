@@ -1,4 +1,4 @@
-package VoyaTrip;
+package voyatrip;
 
 import java.util.ArrayList;
 

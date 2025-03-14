@@ -1,4 +1,4 @@
-package VoyaTrip;
+package voyatrip;
 
 public class Transportation {
     private String mode;
