@@ -2,6 +2,11 @@ package VoyaTrip;
 
 public class Transportation {
     private String mode;
+
+    public Transportation(String mode) {
+        this.mode = mode;
+    }
+
     private Integer budget;
 
     public Transportation(String mode, Integer budget) {
