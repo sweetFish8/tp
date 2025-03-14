@@ -1,0 +1,51 @@
+@startuml
+class Trip{
+    - destination: String
+    - startDate: String
+    - endDate: String
+    - totalBudget: Integer
+    - numDays: Integer
+    + Trip(destination: String, startDate: String, endDate: String, totalBudget: Integer)
+    + addItinerary(day: Integer, name: String, budget: Integer): void
+    + addAccommodation(name: String, budget: Integer): void
+    + deleteAccommodation(index: Integer): void
+    + addTransportation(mode: String, budget: Integer): void
+    + deleteTransportation(index: Integer): void
+    + toString(){redefines toString()}: String
+}
+
+class Day{
+    - budget: Integer
+    + Day()
+    + addActivity(name: String, budget Integer): void
+    + toString(){redefines toString()}: String
+}
+
+class Activity{
+    - name: String
+    - time: String
+    + Activity(name: String, time: Integer)
+    + toString(){redefines toString()}: String
+}
+
+class Accommodation{
+    - name: String
+    - budget: Integer
+    + Accommodation(name: String, budget: Integer)
+    + toString(){redefines toString()}: String
+}
+
+class Transportation{
+    - mode: String
+    - budget: Integer
+    + Transportation(mode: String, budget: Integer)
+    + toString(){redefines toString()}: String
+}
+
+Trip --> "0..1" Day : - itineraries: ArrayList<Day>
+Day --> "0..1" Activity : - activities: ArrayList<Activity>
+Trip --> "0..1" Accommodation : - accommodations: ArrayList<Accommodation>
+Trip --> "0..1" Transportation : - transportations: ArrayList<Transportation>
+
+
+@enduml
