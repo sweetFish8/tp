@@ -1,31 +1,39 @@
 package voyatrip.command.types;
 
-import java.util.HashMap;
-
-import voyatrip.command.Parser;
 import voyatrip.command.exceptions.InvalidCommand;
 
-public class TransportationParser extends Parser {
-    private HashMap<String, String> tokenizeAdd() throws InvalidCommand {
+public class TransportationCommand extends Command {
+    String name;
+    String mode;
+    Integer budget;
 
-    }
-
-    private HashMap<String, String> tokenizeDelete() throws InvalidCommand {
-
-    }
-
-    private HashMap<String, String> tokenizeList() throws InvalidCommand {
-
+    public TransportationCommand(String keyword) {
+        super(keyword);
     }
 
     @Override
-    public HashMap<String, String> tokenize(String command) throws InvalidCommand {
-        String[] spaceSeparatedTokens = command.split(" ");
-        return switch (spaceSeparatedTokens[1]) {
-            case "add" -> tokenizeAdd();
-            case "delete" -> tokenizeDelete();
-            case "list" -> tokenizeList();
-            default -> throw new InvalidCommand();
-        };
+    public Command tokenizeAdd(String command) throws InvalidCommand {
+        String[] hyphenSeparatedTokens = splitCommand(command);
+        for (String argument : hyphenSeparatedTokens) {
+            String argumentKeyword = argument.split(" ")[0];
+            String argumentValue = argument.replaceFirst(argumentKeyword, "").strip();
+            switch (argumentKeyword) {
+                case "name", "n" -> this.name = argumentValue;
+                case "mode", "m" -> this.mode = argumentValue;
+                case "budget", "b" -> this.budget = Integer.parseInt(argumentValue);
+                default -> throw new InvalidCommand();
+            }
+        }
+        return this;
+    }
+
+    @Override
+    public Command tokenizeDelete(String command) throws InvalidCommand {
+        return this;
+    }
+
+    @Override
+    public Command tokenizeList(String command) throws InvalidCommand {
+        return this;
     }
 }

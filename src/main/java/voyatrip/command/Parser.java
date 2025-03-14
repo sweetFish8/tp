@@ -1,39 +1,33 @@
-package VoyaTrip.command;
+package voyatrip.command;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-
-import VoyaTrip.command.exceptions.InvalidCommand;
-import VoyaTrip.command.types.AccommodationParser;
-import VoyaTrip.command.types.ActivityParser;
-import VoyaTrip.command.types.TransportationParser;
-import VoyaTrip.command.types.TripsParser;
+import voyatrip.command.exceptions.InvalidCommand;
+import voyatrip.command.types.AccommodationCommand;
+import voyatrip.command.types.ActivityCommand;
+import voyatrip.command.types.Command;
+import voyatrip.command.types.TransportationCommand;
+import voyatrip.command.types.TripsCommand;
 
 public class Parser {
-    private TripsParser tripParser;
-    private ActivityParser activityParser;
-    private AccommodationParser accommodationParser;
-    private TransportationParser transportationParser;
-    private Parser currentParser;
+    private String currentPage;
     private String currentTrip;
 
     public Parser() {
+        currentPage = "allTrip";
         currentTrip = "";
-        tripParser = new TripsParser();
-        activityParser = new ActivityParser();
-        accommodationParser = new AccommodationParser();
-        transportationParser = new TransportationParser();
-        currentParser = tripParser;
     }
 
-    public HashMap<String, String> tokenize(String command) throws InvalidCommand {
+    // maybe list all within the trip will list the whole trip
+    public Command tokenize(String command) throws InvalidCommand {
+        command = command.strip();
         String[] spaceSeparatedTokens = command.split(" ");
-        return switch (spaceSeparatedTokens[0]) {
-            case "trip" -> tripParser.tokenize(command);
-            case "activity" -> activityParser.tokenize(command);
-            case "accommodation" -> accommodationParser.tokenize(command);
-            case "transportation" -> transportationParser.tokenize(command);
-            default -> currentParser.tokenize(command);
+        String commandKeyword = spaceSeparatedTokens[0] + " " + spaceSeparatedTokens[1];
+        String argument = command.replaceFirst(commandKeyword, "");
+        return switch (commandKeyword) {
+            case "add trip" -> new TripsCommand("add trip").tokenizeAdd(argument);
+            case "add activity" -> new ActivityCommand("add activity").tokenizeAdd(argument);
+            case "add accommodation" -> new AccommodationCommand("add accommodation").tokenizeAdd(argument);
+            case "add transportation" -> new TransportationCommand("add transportation").tokenizeAdd(argument);
+            default -> throw new InvalidCommand();
         };
     }
 }

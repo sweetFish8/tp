@@ -1,4 +1,4 @@
-package VoyaTrip.command.exceptions;
+package voyatrip.command.exceptions;
 
 import java.io.IOException;
 
