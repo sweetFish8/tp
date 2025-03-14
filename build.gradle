@@ -29,7 +29,7 @@ test {
 }
 
 application {
-    mainClass.set("VoyaTrip.voyaTrip")
+    mainClass.set("voyatrip.voyaTrip")
 }
 
 shadowJar {
