@@ -31,8 +31,12 @@ abstract public class Command {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         Command command = (Command) o;
         return keyword.equals(command.keyword);
     }

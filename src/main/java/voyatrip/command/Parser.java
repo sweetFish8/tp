@@ -65,23 +65,23 @@ public class Parser {
     private String extractCommandAction(String command) throws InvalidCommand {
         String commandAction = command.strip().split(" ")[0];
         return switch (commandAction) {
-            case "add", "a", "make", "mk" -> "add";
-            case "delete", "d", "remove", "rm" -> "delete";
-            case "list", "l" -> "list";
-            case "cd" -> "cd";
-            default -> throw new InvalidCommand();
+        case "add", "a", "make", "mk" -> "add";
+        case "delete", "d", "remove", "rm" -> "delete";
+        case "list", "l" -> "list";
+        case "cd" -> "cd";
+        default -> throw new InvalidCommand();
         };
     }
 
     private String extractCommandTargetType(String command) throws InvalidCommand {
         String commandTargetType = command.strip().split(" ")[1];
         return switch (commandTargetType) {
-            case "trip" -> "trip";
-            case "itinerary", "i" -> "itinerary";
-            case "activity", "act" -> "activity";
-            case "accommodation", "accom" -> "accommodation";
-            case "transportation", "tran" -> "transportation";
-            default -> currentPage;
+        case "trip" -> "trip";
+        case "itinerary", "i" -> "itinerary";
+        case "activity", "act" -> "activity";
+        case "accommodation", "accom" -> "accommodation";
+        case "transportation", "tran" -> "transportation";
+        default -> currentPage;
         };
     }
 
@@ -89,11 +89,11 @@ public class Parser {
         String commandKeyword = commandAction + " " + commandTargetType;
 
         return switch (commandTargetType) {
-            case "trip" -> new TripsCommand(commandKeyword, rawArgument);
-            case "itinerary", "day", "activity" -> new ItineraryCommand(commandKeyword, currentTrip, rawArgument);
-            case "accommodation" -> new AccommodationCommand(commandKeyword, currentTrip, rawArgument);
-            case "transportation" -> new TransportationCommand(commandKeyword, currentTrip, rawArgument);
-            default -> throw new InvalidCommand();
+        case "trip" -> new TripsCommand(commandKeyword, rawArgument);
+        case "itinerary", "day", "activity" -> new ItineraryCommand(commandKeyword, currentTrip, rawArgument);
+        case "accommodation" -> new AccommodationCommand(commandKeyword, currentTrip, rawArgument);
+        case "transportation" -> new TransportationCommand(commandKeyword, currentTrip, rawArgument);
+        default -> throw new InvalidCommand();
         };
     }
 }
