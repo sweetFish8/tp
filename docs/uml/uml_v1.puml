@@ -1,8 +1,14 @@
 @startuml
+class VoyaTrip
+
+class Ui{
+    + run(): void
+}
+
+class Parser
+
 class Trip{
     - destination: String
-    - startDate: String
-    - endDate: String
     - totalBudget: Integer
     - numDays: Integer
     + Trip(destination: String, startDate: String, endDate: String, totalBudget: Integer)
@@ -13,6 +19,17 @@ class Trip{
     + deleteTransportation(index: Integer): void
     + toString(){redefines toString()}: String
 }
+
+class LocalDate
+
+abstract class Command {
+    - keyword: String
+}
+
+class AccommodationCommand
+class TransportationCommand
+class ItineraryCommand
+class TripCommand
 
 class Day{
     - budget: Integer
@@ -42,7 +59,21 @@ class Transportation{
     + toString(){redefines toString()}: String
 }
 
-Trip --> "*" Day : - itineraries: ArrayList<Day>
+VoyaTrip --> "*" Trip : - trips: ArrayList<Trip>
+VoyaTrip *-- "1" Ui : -ui
+
+Ui --> "0..1" Command : -command
+Ui --> "*" Trip : - trips: ArrayList<Trip>
+(Ui, Command) .. Parser
+
+AccommodationCommand --|> Command
+TransportationCommand --|> Command
+ItineraryCommand --|> Command
+TripCommand --|> Command
+
+Trip --> "1" LocalDate : - startDate
+Trip --> "1" LocalDate : - endDate
+Trip --> "0..numDays" Day : - itineraries: ArrayList<Day>
 Day --> "*" Activity : - activities: ArrayList<Activity>
 Trip --> "*" Accommodation : - accommodations: ArrayList<Accommodation>
 Trip --> "*" Transportation : - transportations: ArrayList<Transportation>
