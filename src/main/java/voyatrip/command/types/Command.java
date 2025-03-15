@@ -2,7 +2,7 @@ package voyatrip.command.types;
 
 import voyatrip.command.exceptions.InvalidCommand;
 
-abstract public class Command {
+public abstract class Command {
     String keyword;
 
     public Command(String keyword) {
@@ -23,7 +23,7 @@ abstract public class Command {
         }
     }
 
-    abstract protected void matchArgument(String argument) throws InvalidCommand;
+    protected abstract void matchArgument(String argument) throws InvalidCommand;
 
     public String getKeyword() {
         return keyword;

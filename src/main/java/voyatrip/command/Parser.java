@@ -85,7 +85,8 @@ public class Parser {
         };
     }
 
-    private Command matchCommand(String commandAction, String commandTargetType, String rawArgument) throws InvalidCommand {
+    private Command matchCommand(String commandAction, String commandTargetType, String rawArgument)
+            throws InvalidCommand {
         String commandKeyword = commandAction + " " + commandTargetType;
 
         return switch (commandTargetType) {
