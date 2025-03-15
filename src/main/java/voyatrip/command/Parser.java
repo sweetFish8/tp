@@ -47,9 +47,7 @@ public class Parser {
         String commandAction = extractCommandAction(command);
         String commandTargetType = extractCommandTargetType(command);
 
-        boolean isIncorrectScope =
-                !commandTargetType.equals("trip") && currentPage.equals("all") ||
-                commandAction.equals("cd") && !commandTargetType.equals("trip");
+        boolean isIncorrectScope = !commandTargetType.equals("trip") && currentPage.equals("all");
         if (isIncorrectScope) {
             throw new InvalidCommand();
         }

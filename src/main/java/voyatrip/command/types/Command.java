@@ -1,5 +1,7 @@
 package voyatrip.command.types;
 
+import voyatrip.command.exceptions.InvalidCommand;
+
 abstract public class Command {
     String keyword;
 
@@ -9,8 +11,19 @@ abstract public class Command {
 
     protected String[] splitByDoubleHyphen(String command) {
         command = command.strip();
-        return command.split(" --(?=\\w)");
+        return command.split("(^--| --)(?=\\w+ \\w+)");
     }
+
+    protected void processRawArgument(String rawArgument) throws InvalidCommand {
+        String[] hyphenSeparatedTokens = splitByDoubleHyphen(rawArgument);
+        for (String argument : hyphenSeparatedTokens) {
+            if (!argument.isEmpty()) {
+                matchArgument(argument);
+            }
+        }
+    }
+
+    abstract protected void matchArgument(String argument) throws InvalidCommand;
 
     public String getKeyword() {
         return keyword;

@@ -18,13 +18,11 @@ public class ItineraryCommand extends Command {
         day = null;
         index = null;
 
-        String[] hyphenSeparatedTokens = splitByDoubleHyphen(rawArgument);
-        for (String argument : hyphenSeparatedTokens) {
-            matchArgument(argument);
-        }
+        processRawArgument(rawArgument);
     }
 
-    private void matchArgument(String argument) throws InvalidCommand {
+    @Override
+    protected void matchArgument(String argument) throws InvalidCommand {
         String argumentKeyword = argument.split(" ")[0];
         String argumentValue = argument.replaceFirst(argumentKeyword, "").strip();
 

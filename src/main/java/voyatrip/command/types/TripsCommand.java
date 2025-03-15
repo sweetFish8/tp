@@ -24,17 +24,15 @@ public class TripsCommand extends Command {
         totalBudget = null;
         index = null;
 
-        String[] hyphenSeparatedTokens = splitByDoubleHyphen(rawArgument);
-        for (String argument : hyphenSeparatedTokens) {
-            matchArgument(argument);
-        }
+        processRawArgument(rawArgument);
 
         if (Arrays.asList(INVALID_NAMES).contains(name)) {
             throw new InvalidCommand();
         }
     }
 
-    private void matchArgument(String argument) throws InvalidCommand {
+    @Override
+    protected void matchArgument(String argument) throws InvalidCommand {
         String argumentKeyword = argument.split(" ")[0];
         String argumentValue = argument.replaceFirst(argumentKeyword, "").strip();
 
