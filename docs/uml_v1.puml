@@ -42,10 +42,10 @@ class Transportation{
     + toString(){redefines toString()}: String
 }
 
-Trip --> "0..1" Day : - itineraries: ArrayList<Day>
-Day --> "0..1" Activity : - activities: ArrayList<Activity>
-Trip --> "0..1" Accommodation : - accommodations: ArrayList<Accommodation>
-Trip --> "0..1" Transportation : - transportations: ArrayList<Transportation>
+Trip --> "*" Day : - itineraries: ArrayList<Day>
+Day --> "*" Activity : - activities: ArrayList<Activity>
+Trip --> "*" Accommodation : - accommodations: ArrayList<Accommodation>
+Trip --> "*" Transportation : - transportations: ArrayList<Transportation>
 
 
 @enduml
