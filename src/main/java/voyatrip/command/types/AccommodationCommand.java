@@ -6,7 +6,6 @@ public class AccommodationCommand extends Command {
     String trip;
     String name;
     Integer budget;
-
     Integer index;
 
     public AccommodationCommand(String keyword, String trip, String rawArgument) throws InvalidCommand {

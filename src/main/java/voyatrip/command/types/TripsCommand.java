@@ -12,7 +12,6 @@ public class TripsCommand extends Command {
     String endDate;
     Integer numDay;
     Integer totalBudget;
-
     Integer index;
 
     public TripsCommand(String keyword, String rawArgument) throws InvalidCommand {

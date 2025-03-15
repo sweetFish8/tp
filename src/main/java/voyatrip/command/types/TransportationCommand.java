@@ -7,7 +7,6 @@ public class TransportationCommand extends Command {
     String name;
     String mode;
     Integer budget;
-
     Integer index;
 
     public TransportationCommand(String keyword, String trip, String rawArgument) throws InvalidCommand {

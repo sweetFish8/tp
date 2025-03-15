@@ -7,7 +7,6 @@ public class ItineraryCommand extends Command {
     String name;
     String time;
     Integer day;
-
     Integer index;
 
     public ItineraryCommand(String keyword, String trip, String rawArgument) throws InvalidCommand {
