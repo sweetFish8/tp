@@ -1,7 +1,5 @@
 package voyatrip.command.types;
 
-import voyatrip.command.exceptions.InvalidCommand;
-
 abstract public class Command {
     String keyword;
 
@@ -9,18 +7,20 @@ abstract public class Command {
         this.keyword = keyword;
     }
 
-    public String getKeyword() {
-        return keyword;
-    }
-
-    public String[] splitCommand(String command) {
+    protected String[] splitByDoubleHyphen(String command) {
         command = command.strip();
         return command.split(" --(?=\\w)");
     }
 
-    abstract public Command tokenizeAdd(String command) throws InvalidCommand;
+    public String getKeyword() {
+        return keyword;
+    }
 
-    abstract public Command tokenizeDelete(String command) throws InvalidCommand;
-
-    abstract public Command tokenizeList(String command) throws InvalidCommand;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Command command = (Command) o;
+        return keyword.equals(command.keyword);
+    }
 }

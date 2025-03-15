@@ -1,43 +1,75 @@
 package voyatrip.command.types;
 
+import java.util.Arrays;
+
 import voyatrip.command.exceptions.InvalidCommand;
 
 public class TripsCommand extends Command {
+    final String[] INVALID_NAMES = {"home", "all"};
+
     String name;
     String startDate;
     String endDate;
     Integer numDay;
     Integer totalBudget;
 
-    public TripsCommand(String keyword) {
+    Integer index;
+
+    public TripsCommand(String keyword, String rawArgument) throws InvalidCommand {
         super(keyword);
-    }
+        name = null;
+        startDate = null;
+        endDate = null;
+        numDay = null;
+        totalBudget = null;
+        index = null;
 
-    @Override
-    public Command tokenizeAdd(String command) throws InvalidCommand {
-        String[] hyphenSeparatedTokens = splitCommand(command);
+        String[] hyphenSeparatedTokens = splitByDoubleHyphen(rawArgument);
         for (String argument : hyphenSeparatedTokens) {
-            String argumentKeyword = argument.split(" ")[0];
-            String argumentValue = argument.replaceFirst(argumentKeyword, "").strip();
-            switch (argumentKeyword) {
-                case "name", "n" -> name = argumentValue;
-                case "start", "s" -> startDate = argumentValue;
-                case "end", "e" -> endDate = argumentValue;
-                case "day", "d" -> numDay = Integer.parseInt(argumentValue);
-                case "budget", "b" -> totalBudget = Integer.parseInt(argumentValue);
-                default -> throw new InvalidCommand();
-            }
+            matchArgument(argument);
         }
-        return this;
+
+        if (Arrays.asList(INVALID_NAMES).contains(name)) {
+            throw new InvalidCommand();
+        }
     }
 
-    @Override
-    public Command tokenizeDelete(String command) throws InvalidCommand {
-        return this;
+    private void matchArgument(String argument) throws InvalidCommand {
+        String argumentKeyword = argument.split(" ")[0];
+        String argumentValue = argument.replaceFirst(argumentKeyword, "").strip();
+
+        switch (argumentKeyword) {
+            case "name", "n" -> name = argumentValue;
+            case "start", "s" -> startDate = argumentValue;
+            case "end", "e" -> endDate = argumentValue;
+            case "day", "d" -> numDay = Integer.parseInt(argumentValue);
+            case "budget", "b" -> totalBudget = Integer.parseInt(argumentValue);
+            case "index", "i" -> index = Integer.parseInt(argumentValue);
+            default -> throw new InvalidCommand();
+        }
     }
 
-    @Override
-    public Command tokenizeList(String command) throws InvalidCommand {
-        return this;
+    public String getStartDate() {
+        return startDate;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getEndDate() {
+        return endDate;
+    }
+
+    public Integer getNumDay() {
+        return numDay;
+    }
+
+    public Integer getTotalBudget() {
+        return totalBudget;
+    }
+
+    public Integer getIndex() {
+        return index;
     }
 }

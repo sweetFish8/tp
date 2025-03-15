@@ -2,20 +2,20 @@ package voyatrip.command.types;
 
 import voyatrip.command.exceptions.InvalidCommand;
 
-public class TransportationCommand extends Command {
+public class ItineraryCommand extends Command {
     String trip;
     String name;
-    String mode;
-    Integer budget;
+    String time;
+    Integer day;
 
     Integer index;
 
-    public TransportationCommand(String keyword, String trip, String rawArgument) throws InvalidCommand {
+    public ItineraryCommand(String keyword, String trip, String rawArgument) throws InvalidCommand {
         super(keyword);
         this.trip = trip;
         name = null;
-        mode = null;
-        budget = null;
+        time = null;
+        day = null;
         index = null;
 
         String[] hyphenSeparatedTokens = splitByDoubleHyphen(rawArgument);
@@ -30,8 +30,8 @@ public class TransportationCommand extends Command {
 
         switch (argumentKeyword) {
             case "name", "n" -> name = argumentValue;
-            case "mode", "m" -> mode = argumentValue;
-            case "budget", "b" -> budget = Integer.parseInt(argumentValue);
+            case "time", "t" -> time = argumentValue;
+            case "day", "d" -> day = Integer.parseInt(argumentValue);
             case "index", "i" -> index = Integer.parseInt(argumentValue);
             default -> throw new InvalidCommand();
         }
@@ -45,12 +45,12 @@ public class TransportationCommand extends Command {
         return name;
     }
 
-    public String getMode() {
-        return mode;
+    public String getTime() {
+        return time;
     }
 
-    public Integer getBudget() {
-        return budget;
+    public Integer getDay() {
+        return day;
     }
 
     public Integer getIndex() {

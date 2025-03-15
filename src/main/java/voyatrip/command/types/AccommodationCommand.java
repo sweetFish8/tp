@@ -3,35 +3,50 @@ package voyatrip.command.types;
 import voyatrip.command.exceptions.InvalidCommand;
 
 public class AccommodationCommand extends Command {
+    String trip;
     String name;
     Integer budget;
 
-    public AccommodationCommand(String keyword) {
+    Integer index;
+
+    public AccommodationCommand(String keyword, String trip, String rawArgument) throws InvalidCommand {
         super(keyword);
-    }
+        this.trip = trip;
+        name = null;
+        budget = null;
+        index = null;
 
-    @Override
-    public Command tokenizeAdd(String command) throws InvalidCommand {
-        String[] hyphenSeparatedTokens = splitCommand(command);
+        String[] hyphenSeparatedTokens = splitByDoubleHyphen(rawArgument);
         for (String argument : hyphenSeparatedTokens) {
-            String argumentKeyword = argument.split(" ")[0];
-            String argumentValue = argument.replaceFirst(argumentKeyword, "").strip();
-            switch (argumentKeyword) {
-                case "name", "n" -> this.name = argumentValue;
-                case "budget", "b" -> this.budget = Integer.parseInt(argumentValue);
-                default -> throw new InvalidCommand();
-            }
+            matchArgument(argument);
         }
-        return this;
     }
 
-    @Override
-    public Command tokenizeDelete(String command) throws InvalidCommand {
-        return this;
+    private void matchArgument(String argument) throws InvalidCommand {
+        String argumentKeyword = argument.split(" ")[0];
+        String argumentValue = argument.replaceFirst(argumentKeyword, "").strip();
+
+        switch (argumentKeyword) {
+            case "name", "n" -> name = argumentValue;
+            case "budget", "b" -> budget = Integer.parseInt(argumentValue);
+            case "index", "i" -> index = Integer.parseInt(argumentValue);
+            default -> throw new InvalidCommand();
+        }
     }
 
-    @Override
-    public Command tokenizeList(String command) throws InvalidCommand {
-        return this;
+    public String getTrip() {
+        return trip;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public Integer getBudget() {
+        return budget;
+    }
+
+    public Integer getIndex() {
+        return index;
     }
 }
