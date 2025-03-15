@@ -5,8 +5,6 @@ class Ui{
     + run(): void
 }
 
-class Parser
-
 class Trip{
     - destination: String
     - totalBudget: Integer
@@ -19,17 +17,6 @@ class Trip{
     + deleteTransportation(index: Integer): void
     + toString(){redefines toString()}: String
 }
-
-class LocalDate
-
-abstract class Command {
-    - keyword: String
-}
-
-class AccommodationCommand
-class TransportationCommand
-class ItineraryCommand
-class TripCommand
 
 class Day{
     - budget: Integer
@@ -59,17 +46,104 @@ class Transportation{
     + toString(){redefines toString()}: String
 }
 
+class LocalDate
+
+class Parser {
+    - currentPage: String
+    - currentTrip: String
+    + Parser()
+    + setCurrentPage(page: String): void
+    + setCurrentTrip(trip: String): void
+    + parse(command: String): Command
+    - extractCommandArgument(command: String): String
+    - extractCommandAction(command: String): String
+    - extractCommandTargetType(command: String): String
+    - matchCommand(commandAction: String, commandTargetType: String, rawArgument: String): Command
+}
+
+abstract class Command {
+    - keyword: String
+    + Command(keyword: String)
+    + getKeyword(): String
+    + equals(Object o): Boolean
+    # splitByDoubleHyphen(command: String): String[]
+    # processRawArgument(rawArgument: String): void
+    # matchArgument(argument: String): void {abstract}
+}
+
+class AccommodationCommand extends Command {
+    - trip: String
+    - name: String
+    - budget: Integer
+    - index: Integer
+    + AccommodationCommand(keyword: String, trip: String, rawArgument: String)
+    + getTrip(): String
+    + getName(): String
+    + getBudget(): Integer
+    + getIndex(): Integer
+    # matchArgument(argument: String): void
+}
+
+class TransportationCommand extends Command {
+    - trip: String
+    - name: String
+    - mode: String
+    - budget: Integer
+    - index: Integer
+    + TransportationCommand(keyword: String, trip: String, rawArgument: String)
+    + getTrip(): String
+    + getName(): String
+    + getMode(): String
+    + getBudget(): Integer
+    + getIndex(): Integer
+    # matchArgument(argument: String): void
+}
+
+class ItineraryCommand extends Command {
+    - trip: String
+    - name: String
+    - time: String
+    - budget: Integer
+    - day: Integer
+    + ItineraryCommand(keyword: String, trip: String, rawArgument: String)
+    + getTrip(): String
+    + getName(): String
+    + getTime(): String
+    + getBudget(): Integer
+    + getDay(): Integer
+    # matchArgument(argument: String): void
+}
+
+class TripCommand extends Command {
+    - trip: String
+    - name: String
+    - budget: Integer
+    - index: Integer
+    + TripCommand(keyword: String, trip: String, rawArgument: String)
+    + getTrip(): String
+    + getName(): String
+    + getBudget(): Integer
+    + getIndex(): Integer
+    # matchArgument(argument: String): void
+}
+
+exception IOException
+exception InvalidCommand
+
+InvalidCommand -|> IOException
+
 VoyaTrip --> "*" Trip : - trips: ArrayList<Trip>
-VoyaTrip *-- "1" Ui : -ui
+VoyaTrip *- "1" Ui : -ui
 
 Ui --> "0..1" Command : -command
-Ui --> "*" Trip : - trips: ArrayList<Trip>
+Ui -> "*" Trip : - trips: ArrayList<Trip>
 (Ui, Command) .. Parser
 
-AccommodationCommand --|> Command
-TransportationCommand --|> Command
-ItineraryCommand --|> Command
-TripCommand --|> Command
+Parser -- InvalidCommand : > throw
+AccommodationCommand -- InvalidCommand : > throw
+ItineraryCommand -- InvalidCommand : > throw
+TransportationCommand -- InvalidCommand : > throw
+TripCommand -- InvalidCommand : > throw
 
 Trip --> "1" LocalDate : - startDate
 Trip --> "1" LocalDate : - endDate
