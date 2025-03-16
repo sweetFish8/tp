@@ -1,6 +1,7 @@
 package voyatrip;
 
 import java.util.ArrayList;
+
 import voyatrip.ui.Ui;
 
 public class VoyaTrip {
@@ -8,6 +9,6 @@ public class VoyaTrip {
     private static ArrayList<Trip> trips;
 
     public static void main(String[] args) {
-       ui.run();
+        ui.run();
     }
 }
