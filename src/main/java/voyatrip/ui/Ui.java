@@ -6,8 +6,6 @@ import java.util.Scanner;
 import voyatrip.Trip;
 import voyatrip.command.exceptions.InvalidCommand;
 import voyatrip.command.types.Command;
-import voyatrip.command.types.CommandAction;
-import voyatrip.command.types.CommandTarget;
 import voyatrip.command.types.TripsCommand;
 
 public class Ui {
@@ -38,8 +36,8 @@ public class Ui {
     private void handleCommand(Command command) throws InvalidCommand {
         switch (command.getCommandAction()) {
         case ADD -> handleAdd(command);
-        case DELETE -> handleDelete(command.getCommandTarget());
-        case LIST -> handleList(command.getCommandTarget());
+        case DELETE -> handleDelete(command);
+        case LIST -> handleList(command);
         case EXIT -> handleExit();
         }
     }
@@ -62,8 +60,8 @@ public class Ui {
         }
     }
 
-    private void handleDelete(CommandTarget target) {
-        switch (target) {
+    private void handleDelete(Command command) {
+        switch (command.getCommandTarget()) {
         case TRIP -> {
             trips.remove(trips.size() - 1);
         }
@@ -79,8 +77,8 @@ public class Ui {
         }
     }
 
-    private void handleList(CommandTarget target) {
-        switch (target) {
+    private void handleList(Command command) {
+        switch (command.getCommandTarget()) {
         case TRIP -> {
             for (int i = 0; i < trips.size(); i++) {
                 System.out.println("  " + (i + 1) + ". " + trips.get(i));
