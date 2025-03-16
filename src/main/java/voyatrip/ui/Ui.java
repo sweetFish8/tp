@@ -6,9 +6,12 @@ import java.util.Scanner;
 import voyatrip.Trip;
 import voyatrip.command.exceptions.InvalidCommand;
 import voyatrip.command.types.Command;
+import voyatrip.command.types.CommandAction;
+import voyatrip.command.types.CommandTarget;
+import voyatrip.command.types.TripsCommand;
 
 public class Ui {
-    private Parser parser = new Parser();
+    private static final Parser parser = new Parser();
     private ArrayList<Trip> trips;
     private Boolean isExit = false;
 
@@ -33,63 +36,64 @@ public class Ui {
     }
 
     private void handleCommand(Command command) throws InvalidCommand {
-        switch (command.getAction()) {
-        case CommandAction.ADD -> handleAdd(command.getTarget());
-        case CommandAction.DELETE -> handleDelete(command.getTarget());
-        case CommandAction.LIST -> handleList(command.getTarget());
-        case CommandAction.EXIT -> handleExit();
+        switch (command.getCommandAction()) {
+        case ADD -> handleAdd(command);
+        case DELETE -> handleDelete(command.getCommandTarget());
+        case LIST -> handleList(command.getCommandTarget());
+        case EXIT -> handleExit();
         }
     }
 
-    private void handleAdd(CommandTarget target) {
-        switch (target) {
-        case commandTarget.TRIP -> {
-            trips.add(new Trip());
+    private void handleAdd(Command command) {
+        switch (command.getCommandTarget()) {
+        case TRIP -> {
+            TripsCommand tripsCommand = (TripsCommand) command;
+//            trips.add(new Trip(tripsCommand.getStartDate(), tripsCommand.getEndDate(), tripsCommand.getTotalBudget()));
         }
-        case commandTarget.ITINERARY -> {
-            trips.get(trips.size() - 1).addItinerary();
+        case ACTIVITY -> {
+//            trips.get(trips.size() - 1).addItinerary();
         }
-        case commandTarget.ACCOMMODATION -> {
-            trips.get(trips.size() - 1).addAccommodation();
+        case ACCOMMODATION -> {
+//            trips.get(trips.size() - 1).addAccommodation();
         }
-        case commandTarget.TRANSPORTATION -> {
-            trips.get(trips.size() - 1).addTransportation();
+        case TRANSPORTATION -> {
+//            trips.get(trips.size() - 1).addTransportation();
         }
         }
     }
 
     private void handleDelete(CommandTarget target) {
         switch (target) {
-        case commandTarget.TRIP -> {
+        case TRIP -> {
             trips.remove(trips.size() - 1);
         }
-        case commandTarget.ITINERARY -> {
-            trips.get(trips.size() - 1).removeItinerary();
+        case ACTIVITY -> {
+//            trips.get(trips.size() - 1).removeItinerary();
         }
-        case commandTarget.ACCOMMODATION -> {
-            trips.get(trips.size() - 1).removeAccommodation();
+        case ACCOMMODATION -> {
+//            trips.get(trips.size() - 1).removeAccommodation();
         }
-        case commandTarget.TRANSPORTATION -> {
-            trips.get(trips.size() - 1).removeTransportation();
+        case TRANSPORTATION -> {
+//            trips.get(trips.size() - 1).removeTransportation();
         }
         }
     }
 
-    private void handleList(commandTarget target) {
+    private void handleList(CommandTarget target) {
         switch (target) {
-        case commandTarget.TRIP -> {
+        case TRIP -> {
             for (int i = 0; i < trips.size(); i++) {
                 System.out.println("  " + (i + 1) + ". " + trips.get(i));
             }
         }
-        case commandTarget.ITINERARY -> {
-            trips.get(trips.size() - 1).printItinerary();
+        case ITINERARY -> {
+//            trips.get(trips.size() - 1).printItinerary();
         }
-        case commandTarget.ACCOMMODATION -> {
-            trips.get(trips.size() - 1).printAccommodation();
+        case ACCOMMODATION -> {
+//            trips.get(trips.size() - 1).printAccommodation();
         }
-        case commandTarget.TRANSPORTATION -> {
-            trips.get(trips.size() - 1).printTransportation();
+        case TRANSPORTATION -> {
+//            trips.get(trips.size() - 1).printTransportation();
         }
         }
     }
