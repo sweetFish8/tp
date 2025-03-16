@@ -1,7 +1,5 @@
 package voyatrip;
-
 import java.util.ArrayList;
-
 
 public class Trip {
 
@@ -27,4 +25,3 @@ public class Trip {
         }
 
     }
-}
