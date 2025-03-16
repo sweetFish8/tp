@@ -5,5 +5,5 @@ public enum CommandAction {
     DELETE,
     LIST,
     CHANGE_DIRECTORY,
-    EXIT;
+    EXIT
 }

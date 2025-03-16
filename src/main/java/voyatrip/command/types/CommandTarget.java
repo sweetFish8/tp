@@ -6,5 +6,5 @@ public enum CommandTarget {
     DAY,
     ACTIVITY,
     ACCOMMODATION,
-    TRANSPORTATION;
+    TRANSPORTATION
 }
