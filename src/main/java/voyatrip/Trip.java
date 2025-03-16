@@ -1,4 +1,5 @@
 package voyatrip;
+
 import java.util.ArrayList;
 
 public class Trip {
@@ -13,14 +14,15 @@ public class Trip {
         transportations.add(new Transportation(transportMode));
     }
 
-    public void deleteTransportation(String transportMode) {
-        for (Transportation transportation : transportations) {
-            if (transportation.getMode().equals(transportMode)) {
-                transportations.remove(transportation);
-                break;
-            }
+    public void deleteTransportation(Integer index) {
+        if (index < 1 || index > transportations.size()) {
+            System.out.println("Invalid index: " + index);
+            return;
         }
+        transportations.remove(index - 1);
+        // index - 1, to convert to zero-based index
     }
 }
+
 
 
