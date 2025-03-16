@@ -39,13 +39,13 @@ public class TripsCommand extends Command {
 
         try {
             switch (argumentKeyword) {
-                case "name", "n" -> name = argumentValue;
-                case "start", "s" -> startDate = argumentValue;
-                case "end", "e" -> endDate = argumentValue;
-                case "day", "d" -> numDay = Integer.parseInt(argumentValue);
-                case "budget", "b" -> totalBudget = Integer.parseInt(argumentValue);
-                case "index", "i" -> index = Integer.parseInt(argumentValue);
-                default -> throw new InvalidCommand();
+            case "name", "n" -> name = argumentValue;
+            case "start", "s" -> startDate = argumentValue;
+            case "end", "e" -> endDate = argumentValue;
+            case "day", "d" -> numDay = Integer.parseInt(argumentValue);
+            case "budget", "b" -> totalBudget = Integer.parseInt(argumentValue);
+            case "index", "i" -> index = Integer.parseInt(argumentValue);
+            default -> throw new InvalidCommand();
             }
         } catch (NumberFormatException e) {
             throw new InvalidCommand();
