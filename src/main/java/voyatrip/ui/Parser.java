@@ -2,27 +2,29 @@ package voyatrip.ui;
 
 import voyatrip.command.exceptions.InvalidCommand;
 import voyatrip.command.types.AccommodationCommand;
+import voyatrip.command.types.CommandAction;
+import voyatrip.command.types.CommandTarget;
 import voyatrip.command.types.ItineraryCommand;
 import voyatrip.command.types.Command;
 import voyatrip.command.types.TransportationCommand;
 import voyatrip.command.types.TripsCommand;
 
 public class Parser {
-    private String currentPage;
+    private CommandTarget currentTarget;
     private String currentTrip;
 
     public Parser() {
-        currentPage = "all";
+        currentTarget = null;
         currentTrip = "";
     }
 
     /**
-     * Set the current page the user is in.
+     * Set the current target page the user is in.
      *
-     * @param page The current page the user is in.
+     * @param target The current target page the user is in.
      */
-    public void setCurrentPage(String page) {
-        currentPage = page;
+    public void setCurrentTarget(CommandTarget target) {
+        currentTarget = target;
     }
 
     /**
@@ -44,15 +46,15 @@ public class Parser {
      */
     public Command parse(String command) throws InvalidCommand {
         String argument = extractCommandArgument(command);
-        String commandAction = extractCommandAction(command);
-        String commandTargetType = extractCommandTargetType(command);
+        CommandAction commandAction = extractCommandAction(command);
+        CommandTarget commandTarget = extractCommandTargetType(command);
 
-        boolean isIncorrectScope = !commandTargetType.equals("trip") && currentPage.equals("all");
+        boolean isIncorrectScope = !commandTarget.equals(CommandTarget.TRIP) && currentTarget == null;
         if (isIncorrectScope) {
             throw new InvalidCommand();
         }
 
-        return matchCommand(commandAction, commandTargetType, argument);
+        return matchCommand(commandAction, commandTarget, argument);
     }
 
     private String extractCommandArgument(String command) {
@@ -62,38 +64,36 @@ public class Parser {
         return command.replaceFirst(spaceSeparatedTokens[0] + " " + spaceSeparatedTokens[1], "");
     }
 
-    private String extractCommandAction(String command) throws InvalidCommand {
+    private CommandAction extractCommandAction(String command) throws InvalidCommand {
         String commandAction = command.strip().split(" ")[0];
         return switch (commandAction) {
-        case "add", "a", "make", "mk" -> "add";
-        case "delete", "d", "remove", "rm" -> "delete";
-        case "list", "l" -> "list";
-        case "cd" -> "cd";
+        case "add", "a", "make", "mk" -> CommandAction.ADD;
+        case "delete", "d", "remove", "rm" -> CommandAction.DELETE;
+        case "list", "l" -> CommandAction.LIST;
+        case "cd" -> CommandAction.CHANGE_DIRECTORY;
         default -> throw new InvalidCommand();
         };
     }
 
-    private String extractCommandTargetType(String command) throws InvalidCommand {
-        String commandTargetType = command.strip().split(" ")[1];
-        return switch (commandTargetType) {
-        case "trip" -> "trip";
-        case "itinerary", "i" -> "itinerary";
-        case "activity", "act" -> "activity";
-        case "accommodation", "accom" -> "accommodation";
-        case "transportation", "tran" -> "transportation";
-        default -> currentPage;
+    private CommandTarget extractCommandTargetType(String command) throws InvalidCommand {
+        String commandTarget = command.strip().split(" ")[1];
+        return switch (commandTarget) {
+        case "trip" -> CommandTarget.TRIP;
+        case "itinerary", "i" -> CommandTarget.ITINERARY;
+        case "activity", "act" -> CommandTarget.ACTIVITY;
+        case "accommodation", "accom" -> CommandTarget.ACCOMMODATION;
+        case "transportation", "tran" -> CommandTarget.TRANSPORTATION;
+        default -> currentTarget;
         };
     }
 
-    private Command matchCommand(String commandAction, String commandTargetType, String rawArgument)
+    private Command matchCommand(CommandAction commandAction, CommandTarget commandTarget, String rawArgument)
             throws InvalidCommand {
-        String commandKeyword = commandAction + " " + commandTargetType;
-
-        return switch (commandTargetType) {
-        case "trip" -> new TripsCommand(commandKeyword, rawArgument);
-        case "itinerary", "day", "activity" -> new ItineraryCommand(commandKeyword, currentTrip, rawArgument);
-        case "accommodation" -> new AccommodationCommand(commandKeyword, currentTrip, rawArgument);
-        case "transportation" -> new TransportationCommand(commandKeyword, currentTrip, rawArgument);
+        return switch (commandTarget) {
+        case TRIP -> new TripsCommand(commandAction, commandTarget, rawArgument);
+        case ITINERARY, ACTIVITY -> new ItineraryCommand(commandAction, commandTarget, currentTrip, rawArgument);
+        case ACCOMMODATION -> new AccommodationCommand(commandAction, commandTarget, currentTrip, rawArgument);
+        case TRANSPORTATION -> new TransportationCommand(commandAction, commandTarget, currentTrip, rawArgument);
         default -> throw new InvalidCommand();
         };
     }
