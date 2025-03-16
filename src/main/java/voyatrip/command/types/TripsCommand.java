@@ -54,11 +54,11 @@ public class TripsCommand extends Command {
         boolean isInvalidDelete = isInvalidName && index == null;
 
         return switch (commandAction) {
-            case ADD -> isInvalidAdd;
-            case DELETE -> isInvalidDelete;
-            case LIST, CHANGE_DIRECTORY -> isInvalidName;
-            case EXIT -> false;
-            default -> true;
+        case ADD -> isInvalidAdd;
+        case DELETE -> isInvalidDelete;
+        case LIST, CHANGE_DIRECTORY -> isInvalidName;
+        case EXIT -> false;
+        default -> true;
         };
     }
 

@@ -51,10 +51,10 @@ public class ItineraryCommand extends Command {
         boolean isInvalidDelete = isInvalidName && index == null;
 
         return switch (commandAction) {
-            case ADD -> isInvalidAdd;
-            case DELETE -> isInvalidDelete;
-            case LIST, CHANGE_DIRECTORY, EXIT -> false;
-            default -> true;
+        case ADD -> isInvalidAdd;
+        case DELETE -> isInvalidDelete;
+        case LIST, CHANGE_DIRECTORY, EXIT -> false;
+        default -> true;
         };
     }
 

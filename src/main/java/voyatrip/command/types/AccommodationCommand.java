@@ -1,7 +1,5 @@
 package voyatrip.command.types;
 
-import java.util.Arrays;
-
 import voyatrip.command.exceptions.InvalidCommand;
 
 public class AccommodationCommand extends Command {
