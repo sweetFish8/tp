@@ -1,7 +1,5 @@
 package voyatrip;
-
 import java.util.ArrayList;
-
 
 public class Trip {
 
@@ -19,8 +17,10 @@ public class Trip {
         for (Transportation transportation : transportations) {
             if (transportation.getMode().equals(transportMode)) {
                 transportations.remove(transportation);
+                break;
             }
         }
-
     }
 }
+
+
