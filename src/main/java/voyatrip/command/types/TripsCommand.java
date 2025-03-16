@@ -5,7 +5,7 @@ import java.util.Arrays;
 import voyatrip.command.exceptions.InvalidCommand;
 
 public class TripsCommand extends Command {
-    final String[] INVALID_NAMES = {"home", "all"};
+    static final String[] INVALID_NAMES = {"home", "all"};
 
     String name;
     String startDate;
