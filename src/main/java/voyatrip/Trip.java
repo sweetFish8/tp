@@ -17,7 +17,8 @@ public class Trip {
         for (Transportation transportation : transportations) {
             if (transportation.getMode().equals(transportMode)) {
                 transportations.remove(transportation);
+                break; 
             }
         }
-
     }
+}
