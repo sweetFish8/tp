@@ -45,9 +45,16 @@ public class Parser {
      * @throws InvalidCommand If the input command is invalid.
      */
     public Command parse(String command) throws InvalidCommand {
-        String argument = extractCommandArgument(command);
-        CommandAction commandAction = extractCommandAction(command);
-        CommandTarget commandTarget = extractCommandTargetType(command);
+        String argument;
+        CommandAction commandAction;
+        CommandTarget commandTarget;
+        try {
+            argument = extractCommandArgument(command);
+            commandAction = extractCommandAction(command);
+            commandTarget = extractCommandTargetType(command);
+        } catch (IndexOutOfBoundsException e) {
+            throw new InvalidCommand();
+        }
 
         boolean isIncorrectScope = !commandTarget.equals(CommandTarget.TRIP) && currentTarget == null;
         if (isIncorrectScope) {
