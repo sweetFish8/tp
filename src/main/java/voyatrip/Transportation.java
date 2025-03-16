@@ -2,7 +2,7 @@ package voyatrip;
 
 public class Transportation {
     private String mode;
-
+    private String name;
     private Integer budget;
 
     public Transportation(String mode) {
@@ -28,6 +28,14 @@ public class Transportation {
 
     public void setBudget(Integer budget) {
         this.budget = budget;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
 }
