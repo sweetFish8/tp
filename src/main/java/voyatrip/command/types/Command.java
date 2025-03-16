@@ -3,10 +3,12 @@ package voyatrip.command.types;
 import voyatrip.command.exceptions.InvalidCommand;
 
 public abstract class Command {
-    String keyword;
+    CommandAction commandAction;
+    CommandTarget commandTarget;
 
-    public Command(String keyword) {
-        this.keyword = keyword;
+    public Command(CommandAction commandAction, CommandTarget commandTarget) {
+        this.commandAction = commandAction;
+        this.commandTarget = commandTarget;
     }
 
     protected String[] splitByDoubleHyphen(String command) {
@@ -25,22 +27,11 @@ public abstract class Command {
 
     protected abstract void matchArgument(String argument) throws InvalidCommand;
 
-    public String getKeyword() {
-        return keyword;
+    public CommandAction getCommandAction() {
+        return commandAction;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (o == null) {
-            return false;
-        }
-        if (this == o) {
-            return true;
-        }
-        if (getClass() != o.getClass()) {
-            return false;
-        }
-        Command command = (Command) o;
-        return keyword.equals(command.keyword);
+    public CommandTarget getCommandTarget() {
+        return commandTarget;
     }
 }

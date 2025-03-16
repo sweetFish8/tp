@@ -14,8 +14,10 @@ public class TripsCommand extends Command {
     Integer totalBudget;
     Integer index;
 
-    public TripsCommand(String keyword, String rawArgument) throws InvalidCommand {
-        super(keyword);
+    public TripsCommand(CommandAction commandAction,
+                        CommandTarget commandTarget,
+                        String rawArgument) throws InvalidCommand {
+        super(commandAction, commandTarget);
         name = null;
         startDate = null;
         endDate = null;

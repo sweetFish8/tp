@@ -9,8 +9,11 @@ public class TransportationCommand extends Command {
     Integer budget;
     Integer index;
 
-    public TransportationCommand(String keyword, String trip, String rawArgument) throws InvalidCommand {
-        super(keyword);
+    public TransportationCommand(CommandAction commandAction,
+                                 CommandTarget commandTarget,
+                                 String trip,
+                                 String rawArgument) throws InvalidCommand {
+        super(commandAction, commandTarget);
         this.trip = trip;
         name = null;
         mode = null;
