@@ -6,7 +6,6 @@ import java.util.Scanner;
 import voyatrip.Trip;
 import voyatrip.command.exceptions.InvalidCommand;
 import voyatrip.command.types.Command;
-import voyatrip.command.types.TripsCommand;
 
 public class Ui {
     private static final Parser parser = new Parser();
