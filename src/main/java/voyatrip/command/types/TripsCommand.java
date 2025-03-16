@@ -5,18 +5,19 @@ import java.util.Arrays;
 import voyatrip.command.exceptions.InvalidCommand;
 
 public class TripsCommand extends Command {
-    final String[] INVALID_NAMES = {"home", "all"};
+    static final String[] INVALID_NAMES = {"home", "all"};
 
     String name;
     String startDate;
     String endDate;
     Integer numDay;
     Integer totalBudget;
-
     Integer index;
 
-    public TripsCommand(String keyword, String rawArgument) throws InvalidCommand {
-        super(keyword);
+    public TripsCommand(CommandAction commandAction,
+                        CommandTarget commandTarget,
+                        String rawArgument) throws InvalidCommand {
+        super(commandAction, commandTarget);
         name = null;
         startDate = null;
         endDate = null;

@@ -6,11 +6,13 @@ public class AccommodationCommand extends Command {
     String trip;
     String name;
     Integer budget;
-
     Integer index;
 
-    public AccommodationCommand(String keyword, String trip, String rawArgument) throws InvalidCommand {
-        super(keyword);
+    public AccommodationCommand(CommandAction commandAction,
+                                CommandTarget commandTarget,
+                                String trip,
+                                String rawArgument) throws InvalidCommand {
+        super(commandAction, commandTarget);
         this.trip = trip;
         name = null;
         budget = null;

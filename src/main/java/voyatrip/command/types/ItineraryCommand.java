@@ -7,11 +7,13 @@ public class ItineraryCommand extends Command {
     String name;
     String time;
     Integer day;
-
     Integer index;
 
-    public ItineraryCommand(String keyword, String trip, String rawArgument) throws InvalidCommand {
-        super(keyword);
+    public ItineraryCommand(CommandAction commandAction,
+                            CommandTarget commandTarget,
+                            String trip,
+                            String rawArgument) throws InvalidCommand {
+        super(commandAction, commandTarget);
         this.trip = trip;
         name = null;
         time = null;
