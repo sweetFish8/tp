@@ -28,12 +28,16 @@ public class ItineraryCommand extends Command {
         String argumentKeyword = argument.split(" ")[0];
         String argumentValue = argument.replaceFirst(argumentKeyword, "").strip();
 
-        switch (argumentKeyword) {
-        case "name", "n" -> name = argumentValue;
-        case "time", "t" -> time = argumentValue;
-        case "day", "d" -> day = Integer.parseInt(argumentValue);
-        case "index", "i" -> index = Integer.parseInt(argumentValue);
-        default -> throw new InvalidCommand();
+        try {
+            switch (argumentKeyword) {
+            case "name", "n" -> name = argumentValue;
+            case "time", "t" -> time = argumentValue;
+            case "day", "d" -> day = Integer.parseInt(argumentValue);
+            case "index", "i" -> index = Integer.parseInt(argumentValue);
+            default -> throw new InvalidCommand();
+            }
+        } catch (NumberFormatException e) {
+            throw new InvalidCommand();
         }
     }
 
