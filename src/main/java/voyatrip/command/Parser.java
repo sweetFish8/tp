@@ -65,10 +65,10 @@ public class Parser {
 
     private String extractCommandArgument(String command) throws InvalidCommand {
         command = command.strip();
-        String[] spaceSeparatedTokens = command.split(" ");
+        String[] spaceSeparatedTokens = command.split("\\s+");
 
         try {
-            return command.replaceFirst(spaceSeparatedTokens[0] + " " + spaceSeparatedTokens[1], "");
+            return command.replaceFirst(spaceSeparatedTokens[0] + "\\s+" + spaceSeparatedTokens[1], "");
         } catch (IndexOutOfBoundsException e) {
             throw new InvalidCommand();
         }
@@ -77,7 +77,7 @@ public class Parser {
     private CommandAction extractCommandAction(String command) throws InvalidCommand {
         String commandAction = null;
         try {
-            commandAction = command.strip().split(" ")[0].toLowerCase();
+            commandAction = command.strip().split("\\s+")[0].toLowerCase();
         } catch (IndexOutOfBoundsException e) {
             throw new InvalidCommand();
         }
@@ -94,7 +94,7 @@ public class Parser {
     private CommandTarget extractCommandTargetType(String command) throws InvalidCommand {
         String commandTarget = null;
         try {
-            commandTarget = command.strip().split(" ")[1].toLowerCase();
+            commandTarget = command.strip().split("\\s+")[1].toLowerCase();
         } catch (IndexOutOfBoundsException e) {
             throw new InvalidCommand();
         }
