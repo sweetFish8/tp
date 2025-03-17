@@ -1,11 +1,14 @@
 package voyatrip;
 
-import voyatrip.command.Parser;
+import java.util.ArrayList;
+
+import voyatrip.ui.Ui;
 
 public class VoyaTrip {
-    private Parser parser = new Parser();
+    private static Ui ui = new Ui();
+    private static ArrayList<Trip> trips;
 
     public static void main(String[] args) {
-
+        ui.run();
     }
 }
