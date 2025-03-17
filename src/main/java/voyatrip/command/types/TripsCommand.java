@@ -7,12 +7,12 @@ import voyatrip.command.exceptions.InvalidCommand;
 public class TripsCommand extends Command {
     static final String[] INVALID_NAMES = {"home", "all"};
 
-    String name;
-    String startDate;
-    String endDate;
-    Integer numDay;
-    Integer totalBudget;
-    Integer index;
+    private String name;
+    private String startDate;
+    private String endDate;
+    private Integer numDay;
+    private Integer totalBudget;
+    private Integer index;
 
     public TripsCommand(CommandAction commandAction,
                         CommandTarget commandTarget,
@@ -27,7 +27,7 @@ public class TripsCommand extends Command {
 
         processRawArgument(rawArgument);
 
-        if (Arrays.asList(INVALID_NAMES).contains(name)) {
+        if (isInvalidCommand()) {
             throw new InvalidCommand();
         }
     }
@@ -37,15 +37,33 @@ public class TripsCommand extends Command {
         String argumentKeyword = argument.split(" ")[0];
         String argumentValue = argument.replaceFirst(argumentKeyword, "").strip();
 
-        switch (argumentKeyword) {
-        case "name", "n" -> name = argumentValue;
-        case "start", "s" -> startDate = argumentValue;
-        case "end", "e" -> endDate = argumentValue;
-        case "day", "d" -> numDay = Integer.parseInt(argumentValue);
-        case "budget", "b" -> totalBudget = Integer.parseInt(argumentValue);
-        case "index", "i" -> index = Integer.parseInt(argumentValue);
-        default -> throw new InvalidCommand();
+        try {
+            switch (argumentKeyword) {
+            case "name", "n" -> name = argumentValue;
+            case "start", "s" -> startDate = argumentValue;
+            case "end", "e" -> endDate = argumentValue;
+            case "day", "d" -> numDay = Integer.parseInt(argumentValue);
+            case "budget", "b" -> totalBudget = Integer.parseInt(argumentValue);
+            case "index", "i" -> index = Integer.parseInt(argumentValue);
+            default -> throw new InvalidCommand();
+            }
+        } catch (NumberFormatException e) {
+            throw new InvalidCommand();
         }
+    }
+
+    private boolean isInvalidCommand() {
+        boolean isInvalidName = name == null || Arrays.asList(INVALID_NAMES).contains(name);
+        boolean isInvalidAdd = isInvalidName || startDate == null || endDate == null || totalBudget == null;
+        boolean isInvalidDelete = isInvalidName && index == null;
+
+        return switch (commandAction) {
+        case ADD -> isInvalidAdd;
+        case DELETE -> isInvalidDelete;
+        case LIST, CHANGE_DIRECTORY -> isInvalidName;
+        case EXIT -> false;
+        default -> true;
+        };
     }
 
     public String getStartDate() {

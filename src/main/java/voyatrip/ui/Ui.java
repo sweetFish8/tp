@@ -74,6 +74,7 @@ public class Ui {
         switch (command.getCommandAction()) {
         case ADD -> executeAddActivity(command);
         case DELETE -> executeDeleteActivity(command);
+        default -> throw new InvalidCommand();
         }
     }
 
