@@ -5,8 +5,13 @@ import java.util.Objects;
 import java.util.Scanner;
 
 import voyatrip.Trip;
+import voyatrip.command.types.Command;
 import voyatrip.command.exceptions.InvalidCommand;
-import voyatrip.command.types.*;
+import voyatrip.command.types.ItineraryCommand;
+import voyatrip.command.types.AccommodationCommand;
+import voyatrip.command.types.TransportationCommand;
+import voyatrip.command.types.TripsCommand;
+import voyatrip.command.types.CommandAction;
 
 import static voyatrip.command.types.CommandAction.EXIT;
 
