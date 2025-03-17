@@ -77,7 +77,7 @@ public class Parser {
     private CommandAction extractCommandAction(String command) throws InvalidCommand {
         String commandAction = null;
         try {
-            commandAction = command.strip().split(" ")[0];
+            commandAction = command.strip().split(" ")[0].toLowerCase();
         } catch (IndexOutOfBoundsException e) {
             throw new InvalidCommand();
         }
@@ -94,7 +94,7 @@ public class Parser {
     private CommandTarget extractCommandTargetType(String command) throws InvalidCommand {
         String commandTarget = null;
         try {
-            commandTarget = command.strip().split(" ")[1];
+            commandTarget = command.strip().split(" ")[1].toLowerCase();
         } catch (IndexOutOfBoundsException e) {
             throw new InvalidCommand();
         }
