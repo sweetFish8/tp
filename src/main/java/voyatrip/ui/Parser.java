@@ -4,6 +4,7 @@ import voyatrip.command.exceptions.InvalidCommand;
 import voyatrip.command.types.AccommodationCommand;
 import voyatrip.command.types.CommandAction;
 import voyatrip.command.types.CommandTarget;
+import voyatrip.command.types.ExitCommand;
 import voyatrip.command.types.ItineraryCommand;
 import voyatrip.command.types.Command;
 import voyatrip.command.types.TransportationCommand;
@@ -45,16 +46,14 @@ public class Parser {
      * @throws InvalidCommand If the input command is invalid.
      */
     public Command parse(String command) throws InvalidCommand {
-        String argument;
-        CommandAction commandAction;
-        CommandTarget commandTarget;
-        try {
-            argument = extractCommandArgument(command);
-            commandAction = extractCommandAction(command);
-            commandTarget = extractCommandTargetType(command);
-        } catch (IndexOutOfBoundsException e) {
-            throw new InvalidCommand();
+        CommandAction commandAction = extractCommandAction(command);
+
+        if (commandAction.equals(CommandAction.EXIT)) {
+            return new ExitCommand();
         }
+
+        String argument = extractCommandArgument(command);
+        CommandTarget commandTarget = extractCommandTargetType(command);
 
         boolean isIncorrectScope = !commandTarget.equals(CommandTarget.TRIP) && currentTarget == null;
         if (isIncorrectScope) {
@@ -64,26 +63,41 @@ public class Parser {
         return matchCommand(commandAction, commandTarget, argument);
     }
 
-    private String extractCommandArgument(String command) {
+    private String extractCommandArgument(String command) throws InvalidCommand {
         command = command.strip();
-        String[] spaceSeparatedTokens = command.split(" ");
+        String[] spaceSeparatedTokens = command.split("\\s+");
 
-        return command.replaceFirst(spaceSeparatedTokens[0] + " " + spaceSeparatedTokens[1], "");
+        try {
+            return command.replaceFirst(spaceSeparatedTokens[0] + "\\s+" + spaceSeparatedTokens[1], "");
+        } catch (IndexOutOfBoundsException e) {
+            throw new InvalidCommand();
+        }
     }
 
     private CommandAction extractCommandAction(String command) throws InvalidCommand {
-        String commandAction = command.strip().split(" ")[0];
+        String commandAction = null;
+        try {
+            commandAction = command.strip().split("\\s+")[0].toLowerCase();
+        } catch (IndexOutOfBoundsException e) {
+            throw new InvalidCommand();
+        }
         return switch (commandAction) {
         case "add", "a", "make", "mk" -> CommandAction.ADD;
         case "delete", "d", "remove", "rm" -> CommandAction.DELETE;
         case "list", "l" -> CommandAction.LIST;
         case "cd" -> CommandAction.CHANGE_DIRECTORY;
+        case "exit", "quit", "bye" -> CommandAction.EXIT;
         default -> throw new InvalidCommand();
         };
     }
 
     private CommandTarget extractCommandTargetType(String command) throws InvalidCommand {
-        String commandTarget = command.strip().split(" ")[1];
+        String commandTarget = null;
+        try {
+            commandTarget = command.strip().split("\\s+")[1].toLowerCase();
+        } catch (IndexOutOfBoundsException e) {
+            throw new InvalidCommand();
+        }
         return switch (commandTarget) {
         case "trip" -> CommandTarget.TRIP;
         case "itinerary", "i" -> CommandTarget.ITINERARY;

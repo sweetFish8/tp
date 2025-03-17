@@ -27,8 +27,9 @@ public class AccommodationCommand extends Command {
 
     @Override
     protected void matchArgument(String argument) throws InvalidCommand {
-        String argumentKeyword = argument.split(" ")[0];
+        String argumentKeyword = argument.split("\\s+")[0];
         String argumentValue = argument.replaceFirst(argumentKeyword, "").strip();
+        argumentKeyword = argumentKeyword.toLowerCase();
 
         try {
             switch (argumentKeyword) {
