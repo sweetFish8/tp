@@ -14,13 +14,15 @@ public class Ui {
     private static final Scanner in = new Scanner(System.in);
 
     public void run() {
+        Message.printWelcomeMessage();
         while (!isExit) {
             handleInput(readInput());
         }
+        Message.printGoodbyeMessage();
     }
 
     private String readInput() {
-        return in.nextLine();
+         return in.nextLine();
     }
 
     private void handleInput(String input) {
