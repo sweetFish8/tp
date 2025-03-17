@@ -11,6 +11,7 @@ public class Ui {
     private static final Parser parser = new Parser();
     private ArrayList<Trip> trips;
     private Boolean isExit = false;
+    private static final Scanner in = new Scanner(System.in);
 
     public void run() {
         while (!isExit) {
@@ -19,13 +20,12 @@ public class Ui {
     }
 
     private String readInput() {
-        Scanner in = new Scanner(System.in);
         return in.nextLine();
     }
 
     private void handleInput(String input) {
         try {
-            Command command = parser.parse(readInput());
+            Command command = parser.parse(input);
             handleCommand(command);
         } catch (InvalidCommand e) {
             Message.printInvalidCommand();
@@ -102,6 +102,7 @@ public class Ui {
     }
 
     private void executeAddTrip(Command command) {
+        System.out.println("Adding trip");
     }
 
     private void executeAddActivity(Command command) {
