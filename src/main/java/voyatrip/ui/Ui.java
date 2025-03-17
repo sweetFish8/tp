@@ -9,9 +9,9 @@ import voyatrip.command.types.Command;
 
 public class Ui {
     private static final Parser parser = new Parser();
+    private static final Scanner in = new Scanner(System.in);
     private ArrayList<Trip> trips;
     private Boolean isExit = false;
-    private static final Scanner in = new Scanner(System.in);
 
     public void run() {
         while (!isExit) {
