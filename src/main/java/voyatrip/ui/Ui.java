@@ -1,17 +1,20 @@
 package voyatrip.ui;
 
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.Scanner;
 
 import voyatrip.Trip;
 import voyatrip.command.exceptions.InvalidCommand;
-import voyatrip.command.types.Command;
+import voyatrip.command.types.*;
+
+import static voyatrip.command.types.CommandAction.EXIT;
 
 public class Ui {
     private static final Parser parser = new Parser();
+    private static final Scanner in = new Scanner(System.in);
     private ArrayList<Trip> trips;
     private Boolean isExit = false;
-    private static final Scanner in = new Scanner(System.in);
 
     public void run() {
         Message.printWelcomeMessage();
@@ -35,66 +38,59 @@ public class Ui {
     }
 
     private void handleCommand(Command command) throws InvalidCommand {
+        if (EXIT.equals(command.getCommandAction())) {
+            handleExit();
+            return;
+        }
+
+        switch (command.getCommandTarget()) {
+        case TRIP -> handleTrip((TripsCommand) command);
+        case ITINERARY -> handleItinerary((ItineraryCommand) command);
+        case ACTIVITY -> handleActivity((ItineraryCommand) command);
+        case ACCOMMODATION -> handleAccommodation((AccommodationCommand) command);
+        case TRANSPORTATION -> handleTransportation((TransportationCommand) command);
+        default -> throw new InvalidCommand();
+        }
+    }
+
+    private void handleTrip(TripsCommand command) throws InvalidCommand {
         switch (command.getCommandAction()) {
-        case ADD -> handleAdd(command);
-        case DELETE -> handleDelete(command);
-        case LIST -> handleList(command);
-        case EXIT -> handleExit();
+        case ADD -> executeAddTrip(command);
+        case DELETE -> executeDeleteTrip(command);
+        case LIST -> executeListTrip(command);
         default -> throw new InvalidCommand();
         }
     }
 
-    private void handleAdd(Command command) throws InvalidCommand {
-        switch (command.getCommandTarget()) {
-        case TRIP -> {
-            executeAddTrip(command);
-        }
-        case ACTIVITY -> {
-            executeAddActivity(command);
-        }
-        case ACCOMMODATION -> {
-            executeAddAccommodation(command);
-        }
-        case TRANSPORTATION -> {
-            executeAddTransportation(command);
-        }
-        default -> throw new InvalidCommand();
-        }
-    }
-
-
-    private void handleDelete(Command command) throws InvalidCommand {
-        switch (command.getCommandTarget()) {
-        case TRIP -> {
-            executeDeleteTrip(command);
-        }
-        case ACTIVITY -> {
-            executeDeleteActivity(command);
-        }
-        case ACCOMMODATION -> {
-            executeDeleteAccommodation(command);
-        }
-        case TRANSPORTATION -> {
-            executeDeleteTransportation(command);
-        }
-        default -> throw new InvalidCommand();
-        }
-    }
-
-    private void handleList(Command command) throws InvalidCommand {
-        switch (command.getCommandTarget()) {
-        case TRIP -> {
-            executeListTrip(command);
-        }
-        case ITINERARY -> {
+    private void handleItinerary(ItineraryCommand command) throws InvalidCommand {
+        if (Objects.requireNonNull(command.getCommandAction()) == CommandAction.LIST) {
             executeListItinerary(command);
+        } else {
+            throw new InvalidCommand();
         }
-        case ACCOMMODATION -> {
-            executeListAccommodation(command);
+    }
+
+    private void handleActivity(ItineraryCommand command) throws InvalidCommand {
+        switch (command.getCommandAction()) {
+        case ADD -> executeAddActivity(command);
+        case DELETE -> executeDeleteActivity(command);
         }
-        case TRANSPORTATION -> {
-            executeListTransportation(command);
+    }
+
+    private void handleAccommodation(AccommodationCommand command) throws InvalidCommand {
+        switch (command.getCommandAction()) {
+        case ADD -> executeAddAccommodation(command);
+        case DELETE -> executeDeleteAccommodation(command);
+        case LIST -> executeListAccommodation(command);
+        default -> throw new InvalidCommand();
         }
+    }
+
+    private void handleTransportation(TransportationCommand command) throws InvalidCommand {
+        switch (command.getCommandAction()) {
+        case ADD -> executeAddTransportation(command);
+        case DELETE -> executeDeleteTransportation(command);
+        case LIST -> executeListTransportation(command);
         default -> throw new InvalidCommand();
         }
     }
