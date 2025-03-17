@@ -3,8 +3,8 @@ package voyatrip.command.types;
 import voyatrip.command.exceptions.InvalidCommand;
 
 public abstract class Command {
-    CommandAction commandAction;
-    CommandTarget commandTarget;
+    protected CommandAction commandAction;
+    protected CommandTarget commandTarget;
 
     public Command(CommandAction commandAction, CommandTarget commandTarget) {
         this.commandAction = commandAction;
