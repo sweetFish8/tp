@@ -27,7 +27,7 @@ public class Trip {
         this.endDate = endDate;
         this.totalBudget = totalBudget;
     }
-}
+
 
     public void addTransportation(String transportMode, String transportName, Integer transportBudget) {
         transportations.add(new Transportation(transportMode, transportName, transportBudget));
@@ -41,8 +41,5 @@ public class Trip {
         transportations.remove(index - 1);
         // index - 1, to convert to zero-based index
     }
-
 }
-
-
 
