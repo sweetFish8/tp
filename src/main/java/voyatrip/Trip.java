@@ -13,8 +13,8 @@ public class Trip {
     private LocalDate endDate;
     private Integer totalBudget;
     private Integer numDays;
-    private ArrayList<Day> itineray;
-    private ArrayList<Accommodation> accommodations;
+    //    private ArrayList<Day> itineray;
+    //    private ArrayList<Accommodation> accommodations;
     private ArrayList<Transportation> transportations;
 
     /**

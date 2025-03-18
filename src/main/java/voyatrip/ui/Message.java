@@ -7,7 +7,6 @@ public class Message {
     // exception
     static final String INVALID_COMMAND_MESSAGE = "Invalid command. Please try again.";
     static final String INDEX_OUT_OF_BOUNDS_MESSAGE = "Invalid index. Please try again.";
-    private static final String INVALID_COMMAND_MESSAGE = "Invalid command. Please try again.";
 
     // Getters
     public static String getWelcomeMessage() {

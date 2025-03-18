@@ -112,7 +112,11 @@ public class VoyaTrip {
     }
 
     private static void executeAddTrip(TripsCommand command) {
-        trips.add(new Trip(command.getName(), command.getStartDate(), command.getEndDate(), command.getTotalBudget()));
+        //        trips.add(new Trip(command.getName(),
+        //        command.getStartDate(),
+        //        command.getEndDate(),
+        //        command.getTotalBudget()));
+        System.out.println("Adding trip");
     }
 
     private static void executeAddActivity(Command command) {
