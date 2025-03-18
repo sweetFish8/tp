@@ -16,12 +16,17 @@ import voyatrip.command.types.CommandAction;
 
 import static voyatrip.command.types.CommandAction.EXIT;
 
+
 public class Ui {
     private static final Parser parser = new Parser();
     private static final Scanner in = new Scanner(System.in);
     private ArrayList<Trip> trips;
     private Boolean isExit = false;
 
+    public static void printWelcomeMessage() {
+        System.out.println(Message.WELCOME_MESSAGE);
+    }
+  
     public void run() {
         while (!isExit) {
             handleInput(readInput());
@@ -175,9 +180,11 @@ public class Ui {
     private void executeListItinerary(Command command) {
     }
 
-    private void executeListAccommodation(Command command) {
+    public static void printGoodbyeMessage() {
+        System.out.println(Message.GOODBYE_MESSAGE);
     }
 
-    private void executeListTransportation(Command command) {
+    public static void printInvalidCommand() {
+        System.out.println(Message.INVALID_COMMAND_MESSAGE);
     }
 }
