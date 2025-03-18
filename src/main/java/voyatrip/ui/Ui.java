@@ -12,4 +12,8 @@ public class Ui {
     public static void printInvalidCommand() {
         System.out.println(Message.INVALID_COMMAND_MESSAGE);
     }
+
+    public static void printIndexOutOfBounds() {
+        System.out.println(Message.INDEX_OUT_OF_BOUNDS_MESSAGE);
+    }
 }

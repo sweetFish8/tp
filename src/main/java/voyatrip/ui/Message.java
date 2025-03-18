@@ -6,4 +6,5 @@ public class Message {
     static final String GOODBYE_MESSAGE = "Goodbye! Wish you have a lovely trip!";
     // exception
     static final String INVALID_COMMAND_MESSAGE = "Invalid command. Please try again.";
+    static final String INDEX_OUT_OF_BOUNDS_MESSAGE = "Invalid index. Please try again.";
 }
