@@ -13,8 +13,6 @@ public class Trip {
     private LocalDate endDate;
     private Integer totalBudget;
     private Integer numDays;
-    private ArrayList<Day> itineray;
-    private ArrayList<Accommodation> accommodations;
     private ArrayList<Transportation> transportations;
 
     /**
@@ -45,6 +43,10 @@ public class Trip {
         }
         transportations.remove(index - 1);
         // index - 1, to convert to zero-based index
+    }
+
+    public String abbrInfo() {
+        return name + ": " + startDate + "->" + endDate + " (days: " + numDays + ", budget: " + totalBudget + ")";
     }
 }
 

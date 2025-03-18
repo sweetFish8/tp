@@ -112,7 +112,9 @@ public class VoyaTrip {
     }
 
     private static void executeAddTrip(TripsCommand command) {
-        trips.add(new Trip(command.getName(), command.getStartDate(), command.getEndDate(), command.getTotalBudget()));
+        Trip newTrip = new Trip(command.getName(), command.getStartDate(), command.getEndDate(), command.getTotalBudget());
+        trips.add(newTrip);
+        Ui.printAddTripMessage(newTrip.abbrInfo());
     }
 
     private static void executeAddActivity(Command command) {
@@ -149,7 +151,9 @@ public class VoyaTrip {
 
     private static void executeDeleteTrip(TripsCommand command) {
         try {
+            Trip deletedTrip = trips.get(command.getIndex() - 1);
             trips.remove(command.getIndex() - 1);
+            Ui.printDeleteTripMessage(deletedTrip.abbrInfo());
         } catch (IndexOutOfBoundsException e) {
             Ui.printIndexOutOfBounds();
         }
