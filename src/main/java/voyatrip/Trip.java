@@ -2,29 +2,34 @@ package voyatrip;
 
 import java.util.ArrayList;
 
+import java.time.LocalDate;
+
+/**
+ * This is the trip class that will hold all the information about the trip.
+ */
 public class Trip {
-    private String destination;
-    private String name;
+    private final String name;
+    private LocalDate startDate;
+    private LocalDate endDate;
+    private Integer totalBudget;
+    private Integer numDays;
     private ArrayList<Transportation> transportations;
 
-    public Trip() {
-        this.transportations = new ArrayList<Transportation>();
-    }
-
-    public String getDestination() {
-        return destination;
-    }
-
-    public void setDestination(String destination) {
-        this.destination = destination;
+    /**
+     * Constructor for the trip class.
+     * @param startDate the start date of the trip.
+     * @param endDate the end date of the trip.
+     * @param totalBudget the total budget for the trip.
+     */
+    public Trip(String name, LocalDate startDate, LocalDate endDate, Integer totalBudget) {
+        this.name = name;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.totalBudget = totalBudget;
     }
 
     public String getName() {
         return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public void addTransportation(String transportMode, String transportName, Integer transportBudget) {
@@ -40,7 +45,8 @@ public class Trip {
         // index - 1, to convert to zero-based index
     }
 
+    public String abbrInfo() {
+        return name + ": " + startDate + "->" + endDate + " (days: " + numDays + ", budget: " + totalBudget + ")";
+    }
 }
-
-
 
