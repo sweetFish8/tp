@@ -1,5 +1,6 @@
 package voyatrip;
 
+import java.util.ArrayList;
 
 import java.time.LocalDate;
 
@@ -27,3 +28,21 @@ public class Trip {
         this.totalBudget = totalBudget;
     }
 }
+
+    public void addTransportation(String transportMode, String transportName, Integer transportBudget) {
+        transportations.add(new Transportation(transportMode, transportName, transportBudget));
+    }
+
+    public void deleteTransportation(Integer index) {
+        if (index < 1 || index > transportations.size()) {
+            System.out.println("Invalid index: " + index);
+            return;
+        }
+        transportations.remove(index - 1);
+        // index - 1, to convert to zero-based index
+    }
+
+}
+
+
+
