@@ -8,7 +8,7 @@ import java.time.LocalDate;
  * This is the trip class that will hold all the information about the trip.
  */
 public class Trip {
-    private String destination;
+    private final String name;
     private LocalDate startDate;
     private LocalDate endDate;
     private Integer totalBudget;
@@ -23,14 +23,15 @@ public class Trip {
      * @param endDate the end date of the trip.
      * @param totalBudget the total budget for the trip.
      */
-    public Trip(LocalDate startDate, LocalDate endDate, Integer totalBudget) {
+    public Trip(String name, LocalDate startDate, LocalDate endDate, Integer totalBudget) {
+        this.name = name;
         this.startDate = startDate;
         this.endDate = endDate;
         this.totalBudget = totalBudget;
     }
 
-    public String getDestination() {
-        return destination;
+    public String getName() {
+        return name;
     }
 
     public void addTransportation(String transportMode, String transportName, Integer transportBudget) {
