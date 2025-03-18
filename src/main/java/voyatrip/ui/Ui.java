@@ -123,6 +123,7 @@ public class Ui {
         Trip trip = findTrip(tripName);
         if (trip == null) {
             System.out.println("Trip " + tripName + " not found");
+            return;
         }
 
         trip.addTransportation(transportMode, transportName, transportBudget);
@@ -146,9 +147,19 @@ public class Ui {
     }
 
     private void executeDeleteAccommodation(Command command) {
+
     }
 
-    private void executeDeleteTransportation(Command command) {
+    private void executeDeleteTransportation(TransportationCommand command) {
+        String tripName = command.getTrip();
+        Integer transportIndex = command.getIndex();
+
+        Trip trip = findTrip(tripName);
+        if (trip == null) {
+            System.out.println("Trip " + tripName + " not found");
+            return;
+        }
+        trip.deleteTransportation(transportIndex);
     }
 
     private void executeListTrip(Command command) {
