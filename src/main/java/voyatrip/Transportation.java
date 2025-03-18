@@ -1,8 +1,6 @@
 package voyatrip;
 
 public class Transportation {
-<<<<<<< HEAD
-=======
     private String mode;
     private String name;
     private Integer budget;
@@ -11,9 +9,9 @@ public class Transportation {
         this.mode = mode;
     }
 
-    public Transportation(String mode, Integer budget) {
+    public Transportation(String mode, String name) {
         this.mode = mode;
-        this.budget = budget;
+        this.name = name;
     }
 
     public String getMode() {
@@ -40,5 +38,4 @@ public class Transportation {
         this.name = name;
     }
 
->>>>>>> 0afa75c9f7990f42260baf40bf07195a13abe521
 }
