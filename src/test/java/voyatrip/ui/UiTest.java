@@ -64,4 +64,21 @@ public class UiTest {
                 + Message.getGoodbyeMessage();
         assertEquals(expectedOutput, outContent.toString().trim());
     }
+
+    @Test
+    public void handleInput_AddTrip_printAddTripMessage() {
+        // Simulate user input
+        String input = "add trip --name Japan --start Mon --end Wed --b 10\nexit\n";
+        inContent = new ByteArrayInputStream(input.getBytes());
+        System.setIn(inContent); // Set System.in to use the simulated input
+
+        // Run the main method (or the method that reads input)
+        VoyaTrip.main(new String[]{});
+
+        // Verify the output
+        String expectedOutput = Message.getWelcomeMessage() + "\n"
+                + "Adding trip\n"
+                + Message.getGoodbyeMessage();
+        assertEquals(expectedOutput, outContent.toString().trim());
+    }
 }
