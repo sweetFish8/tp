@@ -7,6 +7,7 @@ import java.util.Scanner;
 import voyatrip.Trip;
 import voyatrip.command.types.Command;
 import voyatrip.command.exceptions.InvalidCommand;
+import voyatrip.command.exceptions.TripNotFoundException;
 import voyatrip.command.types.ItineraryCommand;
 import voyatrip.command.types.AccommodationCommand;
 import voyatrip.command.types.TransportationCommand;
@@ -120,14 +121,16 @@ public class Ui {
         String transportName = command.getName();
         Integer transportBudget = command.getBudget();
 
-        Trip trip = findTrip(tripName);
-        if (trip == null) {
-            System.out.println("Trip " + tripName + " not found");
-            return;
+        try {
+            Trip trip = findTrip(tripName);
+            if (trip == null) {
+                throw new TripNotFoundException();
+            }
+            trip.addTransportation(transportMode, transportName, transportBudget);
+            System.out.println("Added transportation");
+        } catch (TripNotFoundException e) {
+            Message.printTripNotFound();
         }
-
-        trip.addTransportation(transportMode, transportName, transportBudget);
-        System.out.println("Adding transportation");
 
     }
 
@@ -154,12 +157,16 @@ public class Ui {
         String tripName = command.getTrip();
         Integer transportIndex = command.getIndex();
 
-        Trip trip = findTrip(tripName);
-        if (trip == null) {
-            System.out.println("Trip " + tripName + " not found");
-            return;
+        try {
+            Trip trip = findTrip(tripName);
+            if (trip == null) {
+                throw new TripNotFoundException();
+            }
+            trip.deleteTransportation(transportIndex);
+            System.out.println("Deleted transportation");
+        } catch (TripNotFoundException e) {
+            Message.printTripNotFound();
         }
-        trip.deleteTransportation(transportIndex);
     }
 
     private void executeListTrip(Command command) {
