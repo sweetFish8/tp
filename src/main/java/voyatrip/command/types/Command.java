@@ -13,7 +13,7 @@ public abstract class Command {
 
     protected String[] splitByDoubleHyphen(String command) {
         command = command.strip();
-        return command.split("(^--| --)(?=\\w+ \\w+)");
+        return command.split("(^--|\\s+--)(?=\\w+\\s+\\w+)");
     }
 
     protected void processRawArgument(String rawArgument) throws InvalidCommand {
