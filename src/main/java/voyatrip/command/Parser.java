@@ -1,4 +1,4 @@
-package voyatrip.ui;
+package voyatrip.command;
 
 import voyatrip.command.exceptions.InvalidCommand;
 import voyatrip.command.types.AccommodationCommand;
