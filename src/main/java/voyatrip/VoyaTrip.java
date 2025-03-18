@@ -140,7 +140,7 @@ public class VoyaTrip {
 
     private static Trip findTrip(String associatedTrip) {
         for (Trip trip : trips) {
-            if (trip.getName().equals(associatedTrip)) {
+            if (trip.getDestination().equals(associatedTrip)) {
                 return trip;
             }
         }

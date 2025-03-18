@@ -8,6 +8,7 @@ import java.time.LocalDate;
  * This is the trip class that will hold all the information about the trip.
  */
 public class Trip {
+    private String destination;
     private LocalDate startDate;
     private LocalDate endDate;
     private Integer totalBudget;
@@ -28,6 +29,9 @@ public class Trip {
         this.totalBudget = totalBudget;
     }
 
+    public String getDestination() {
+        return destination;
+    }
 
     public void addTransportation(String transportMode, String transportName, Integer transportBudget) {
         transportations.add(new Transportation(transportMode, transportName, transportBudget));
