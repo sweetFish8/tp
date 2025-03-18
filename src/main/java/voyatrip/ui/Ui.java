@@ -113,7 +113,30 @@ public class Ui {
     private void executeAddAccommodation(Command command) {
     }
 
-    private void executeAddTransportation(Command command) {
+    private void executeAddTransportation(TransportationCommand command) {
+
+        String tripName = command.getTrip();
+        String transportMode = command.getMode();
+        String transportName = command.getName();
+        Integer transportBudget = command.getBudget();
+
+        Trip trip = findTrip(tripName);
+        if (trip == null) {
+            System.out.println("Trip " + tripName + " not found");
+        }
+
+        trip.addTransportation(transportMode, transportName, transportBudget);
+        System.out.println("Adding transportation");
+
+    }
+
+    private Trip findTrip(String associatedTrip) {
+        for (Trip trip : trips) {
+            if (trip.getName().equals(associatedTrip)) {
+                return trip;
+            }
+        }
+        return null;
     }
 
     private void executeDeleteTrip(Command command) {

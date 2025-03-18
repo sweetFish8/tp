@@ -5,21 +5,10 @@ public class Transportation {
     private String name;
     private Integer budget;
 
-    public Transportation(String mode) {
-        this.mode = mode;
-    }
-
-    public Transportation(String mode, String name) {
+    public Transportation(String mode, String name, Integer budget) {
         this.mode = mode;
         this.name = name;
-    }
-
-    public String getMode() {
-        return mode;
-    }
-
-    public void setMode(String mode) {
-        this.mode = mode;
+        this.budget = budget;
     }
 
     public Integer getBudget() {
@@ -38,4 +27,16 @@ public class Transportation {
         this.name = name;
     }
 
+    public String getMode() {
+        return mode;
+    }
+
+    public void setMode(String mode) {
+        this.mode = mode;
+    }
+
+    @Override
+    public String toString() {
+        return super.toString();
+    }
 }
