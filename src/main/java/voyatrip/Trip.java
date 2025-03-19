@@ -20,12 +20,14 @@ public class Trip {
      * Constructor for the trip class.
      * @param startDate the start date of the trip.
      * @param endDate the end date of the trip.
+     * @param numDays the number of days for the trip.
      * @param totalBudget the total budget for the trip.
      */
-    public Trip(String name, LocalDate startDate, LocalDate endDate, Integer totalBudget) {
+    public Trip(String name, LocalDate startDate, LocalDate endDate, Integer numDays, Integer totalBudget) {
         this.name = name;
         this.startDate = startDate;
         this.endDate = endDate;
+        this.numDays = numDays;
         this.totalBudget = totalBudget;
         this.accommodations = new ArrayList<>();
     }
