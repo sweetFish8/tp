@@ -137,11 +137,11 @@ public class VoyaTrip {
 
         Trip trip = findTrip(tripName);
         if (trip == null) {
-            System.out.println("Trip " + tripName + " not found");
+            Ui.printTripNotFound();
         }
 
         trip.addTransportation(transportMode, transportName, transportBudget);
-        System.out.println("Adding transportation");
+        Ui.printAddTransportationMessage();
 
     }
 
@@ -170,7 +170,7 @@ public class VoyaTrip {
     private static void executeDeleteAccommodation(Command command) {
     }
 
-    private void executeDeleteTransportation(TransportationCommand command) {
+    private static void executeDeleteTransportation(TransportationCommand command) {
         String tripName = command.getTrip();
         Integer transportIndex = command.getIndex();
 
@@ -180,9 +180,9 @@ public class VoyaTrip {
                 throw new TripNotFoundException();
             }
             trip.deleteTransportation(transportIndex);
-            System.out.println("Deleted transportation");
+            Ui.printDeleteTransportationMessage();
         } catch (TripNotFoundException e) {
-            Message.printTripNotFound();
+            Ui.printTripNotFound();
         }
     }
 

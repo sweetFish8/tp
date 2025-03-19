@@ -31,6 +31,20 @@ public class Ui {
         System.out.println(accommodation);
     }
 
+    public static void printAddTransportationMessage() {
+        System.out.println(Message.ADD_TRANSPORTATION_MESSAGE);
+        /*TODO: print transportation info, ie toString method for transportation*/
+    }
+
+    public static void printDeleteTransportationMessage() {
+        System.out.println(Message.DELETE_TRANSPORTATION_MESSAGE);
+        /*TODO: print transportation info, ie toString method for transportation*/
+    }
+
+    public static void printTripNotFound() {
+        System.out.println(Message.TRIP_NOT_FOUND_MESSAGE);
+    }
+
     public static void printInvalidCommand() {
         System.out.println(Message.INVALID_COMMAND_MESSAGE);
     }
