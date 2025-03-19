@@ -1,5 +1,7 @@
 package voyatrip.ui;
 
+import static voyatrip.command.types.CommandAction.EXIT;
+
 import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Scanner;
@@ -7,15 +9,15 @@ import java.util.Scanner;
 import voyatrip.Trip;
 import voyatrip.command.Parser;
 import voyatrip.command.types.Command;
-import voyatrip.command.exceptions.InvalidCommand;
-import voyatrip.command.exceptions.TripNotFoundException;
 import voyatrip.command.types.ItineraryCommand;
 import voyatrip.command.types.AccommodationCommand;
+import voyatrip.command.types.CommandAction;
 import voyatrip.command.types.TransportationCommand;
 import voyatrip.command.types.TripsCommand;
-import voyatrip.command.types.CommandAction;
 
-import static voyatrip.command.types.CommandAction.EXIT;
+import voyatrip.command.exceptions.InvalidCommand;
+import voyatrip.command.exceptions.TripNotFoundException;
+
 
 
 public class Ui {

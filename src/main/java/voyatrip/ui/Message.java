@@ -9,7 +9,7 @@ public class Message {
     static final String DELETE_TRIP_MESSAGE = "The following trip has been deleted from your list! "
             + "What would you like to do next?";
     // exception
-    private static final String TRIP_NOT_FOUND_MESSAGE = "Trip not found. Please try again.";
+    static final String TRIP_NOT_FOUND_MESSAGE = "Trip not found. Please try again.";
     static final String INVALID_COMMAND_MESSAGE = "Invalid command. Please try again.";
     static final String INDEX_OUT_OF_BOUNDS_MESSAGE = "Invalid index. Please try again.";
 
