@@ -124,7 +124,18 @@ public class VoyaTrip {
     private static void executeAddActivity(Command command) {
     }
 
-    private static void executeAddAccommodation(Command command) {
+    private static void executeAddAccommodation(AccommodationCommand command) {
+        String tripName = command.getTrip();
+        String accommodationName = command.getName();
+        Integer accommodationBudget = command.getBudget();
+        Trip trip = findTrip(tripName);
+
+        if (trip != null) {
+            trip.addAccommodation(accommodationName, accommodationBudget);
+            Ui.printAddAccommodationMessage(trip.getLastAccommodation());
+        } else {
+            Ui.printInvalidCommand();
+        }
     }
 
     private static void executeAddTransportation(TransportationCommand command) {
