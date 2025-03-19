@@ -18,9 +18,10 @@ public class Trip {
 
     /**
      * Constructor for the trip class.
-     * @param startDate the start date of the trip.
-     * @param endDate the end date of the trip.
-     * @param numDays the number of days for the trip.
+     *
+     * @param startDate   the start date of the trip.
+     * @param endDate     the end date of the trip.
+     * @param numDays     the number of days for the trip.
      * @param totalBudget the total budget for the trip.
      */
     public Trip(String name, LocalDate startDate, LocalDate endDate, Integer numDays, Integer totalBudget) {
@@ -67,6 +68,23 @@ public class Trip {
 
     public String abbrInfo() {
         return name + ": " + startDate + "->" + endDate + " (days: " + numDays + ", budget: " + totalBudget + ")";
+    }
+
+    /**
+     * toString method for the Trip class
+     * <p>
+     * It prints the information of the trip and of its associated transportations and accomodations.
+     */
+    @Override
+    public String toString() {
+        StringBuilder tripInfo = new StringBuilder();
+        tripInfo.append(abbrInfo()).append("\n");
+
+        for (Transportation transportation : transportations) {
+            tripInfo.append(transportation.toString()).append("\n");
+        }
+
+        return tripInfo.toString().trim();
     }
 }
 
