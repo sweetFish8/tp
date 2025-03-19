@@ -14,6 +14,7 @@ public class Trip {
     private Integer totalBudget;
     private Integer numDays;
     private ArrayList<Transportation> transportations;
+    private ArrayList<Accommodation> accommodations;
 
     /**
      * Constructor for the trip class.
@@ -26,6 +27,7 @@ public class Trip {
         this.startDate = startDate;
         this.endDate = endDate;
         this.totalBudget = totalBudget;
+        this.accommodations = new ArrayList<>();
     }
 
     public String getName() {
@@ -43,6 +45,22 @@ public class Trip {
         }
         transportations.remove(index - 1);
         // index - 1, to convert to zero-based index
+    }
+
+    public void addAccommodation(String accommodationName, Integer accommodationBudget) {
+        accommodations.add(new Accommodation(accommodationName, accommodationBudget));
+    }
+
+    public void deleteAccommodation(Integer index) {
+        accommodations.remove(index - 1);
+    }
+
+    public Accommodation getAccommodation(Integer index) {
+        return accommodations.get(index - 1);
+    }
+
+    public Accommodation getLastAccommodation() {
+        return accommodations.get(accommodations.size() - 1);
     }
 
     public String abbrInfo() {
