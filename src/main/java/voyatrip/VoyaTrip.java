@@ -177,7 +177,21 @@ public class VoyaTrip {
     private static void executeDeleteActivity(Command command) {
     }
 
-    private static void executeDeleteAccommodation(Command command) {
+    private static void executeDeleteAccommodation(AccommodationCommand command) {
+        try {
+            String tripName = command.getTrip();
+            Trip trip = findTrip(tripName);
+            if (trip != null) {
+                Accommodation deletedAccommodation = trip.getAccommodation(command.getIndex());
+                trip.deleteAccommodation(command.getIndex());
+                Ui.printDeleteAccommodationMessage(deletedAccommodation);
+            } else {
+                Ui.printInvalidCommand();
+            }
+        } catch (IndexOutOfBoundsException e) {
+            Ui.printIndexOutOfBounds();
+        }
+
     }
 
     private static void executeDeleteTransportation(TransportationCommand command) {
