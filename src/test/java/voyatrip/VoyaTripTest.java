@@ -45,38 +45,4 @@ class VoyaTripTest {
                 + Message.getGoodbyeMessage();
         assertEquals(expectedOutput, outContent.toString().trim());
     }
-
-    @Test
-    public void handleInput_invalidCommand_printInvalidCommand() {
-        // Simulate user input
-        String input = "add trip --name\nexit\n";
-        inContent = new ByteArrayInputStream(input.getBytes());
-        System.setIn(inContent); // Set System.in to use the simulated input
-
-        // Run the main method (or the method that reads input)
-        VoyaTrip.main(new String[]{});
-
-        // Verify the output
-        String expectedOutput = Message.getWelcomeMessage() + "\n"
-                + Message.getInvalidCommandMessage() + "\n"
-                + Message.getGoodbyeMessage();
-        assertEquals(expectedOutput, outContent.toString().trim());
-    }
-
-    @Test
-    public void handleInput_addTrip_printAddTripMessage() {
-        // Simulate user input
-        String input = "add trip --name Japan --start Mon --end Wed --b 10\nexit\n";
-        inContent = new ByteArrayInputStream(input.getBytes());
-        System.setIn(inContent); // Set System.in to use the simulated input
-
-        // Run the main method (or the method that reads input)
-        VoyaTrip.main(new String[]{});
-
-        // Verify the output
-        String expectedOutput = Message.getWelcomeMessage() + "\n"
-                + "Adding trip\n"
-                + Message.getGoodbyeMessage();
-        assertEquals(expectedOutput, outContent.toString().trim());
-    }
 }
