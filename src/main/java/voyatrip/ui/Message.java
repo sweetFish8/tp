@@ -1,5 +1,8 @@
 package voyatrip.ui;
 
+/**
+ * This class store all the user interface messages that will be displayed to the user.
+ */
 public class Message {
     // user message
     static final String WELCOME_MESSAGE = "Welcome to VoyaTrip! How can I help you today?";
