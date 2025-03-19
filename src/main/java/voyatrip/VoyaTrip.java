@@ -5,6 +5,7 @@ import java.util.Objects;
 import java.util.Scanner;
 
 import voyatrip.command.exceptions.InvalidCommand;
+import voyatrip.command.exceptions.TripNotFoundException;
 import voyatrip.command.types.AccommodationCommand;
 import voyatrip.command.types.Command;
 import voyatrip.command.types.CommandAction;
@@ -12,6 +13,7 @@ import voyatrip.command.types.ItineraryCommand;
 import voyatrip.command.types.TransportationCommand;
 import voyatrip.command.types.TripsCommand;
 import voyatrip.command.Parser;
+import voyatrip.ui.Message;
 import voyatrip.ui.Ui;
 
 import static voyatrip.command.types.CommandAction.EXIT;
@@ -168,7 +170,20 @@ public class VoyaTrip {
     private static void executeDeleteAccommodation(Command command) {
     }
 
-    private static void executeDeleteTransportation(Command command) {
+    private void executeDeleteTransportation(TransportationCommand command) {
+        String tripName = command.getTrip();
+        Integer transportIndex = command.getIndex();
+
+        try {
+            Trip trip = findTrip(tripName);
+            if (trip == null) {
+                throw new TripNotFoundException();
+            }
+            trip.deleteTransportation(transportIndex);
+            System.out.println("Deleted transportation");
+        } catch (TripNotFoundException e) {
+            Message.printTripNotFound();
+        }
     }
 
     private static void executeListTrip(Command command) {

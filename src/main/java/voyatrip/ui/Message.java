@@ -8,6 +8,8 @@ public class Message {
             + "What would you like to do next?";
     static final String DELETE_TRIP_MESSAGE = "The following trip has been deleted from your list! "
             + "What would you like to do next?";
+    static final String ADD_ACCOMMODATION_MESSAGE = "The following accommodation has been added to your list! ";
+    static final String DELETE_ACCOMMODATION_MESSAGE = "The following accommodation has been deleted to your list! ";
     // exception
     static final String TRIP_NOT_FOUND_MESSAGE = "Trip not found. Please try again.";
     static final String INVALID_COMMAND_MESSAGE = "Invalid command. Please try again.";
