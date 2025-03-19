@@ -5,6 +5,7 @@ import java.util.Objects;
 import java.util.Scanner;
 
 import voyatrip.command.exceptions.InvalidCommand;
+import voyatrip.command.exceptions.TripNotFoundException;
 import voyatrip.command.types.AccommodationCommand;
 import voyatrip.command.types.Command;
 import voyatrip.command.types.CommandAction;
@@ -112,17 +113,29 @@ public class VoyaTrip {
     }
 
     private static void executeAddTrip(TripsCommand command) {
-        //        trips.add(new Trip(command.getName(),
-        //        command.getStartDate(),
-        //        command.getEndDate(),
-        //        command.getTotalBudget()));
-        System.out.println("Adding trip");
+        Trip newTrip = new Trip(command.getName(),
+                command.getStartDate(),
+                command.getEndDate(),
+                command.getTotalBudget());
+        trips.add(newTrip);
+        Ui.printAddTripMessage(newTrip.abbrInfo());
     }
 
     private static void executeAddActivity(Command command) {
     }
 
-    private static void executeAddAccommodation(Command command) {
+    private static void executeAddAccommodation(AccommodationCommand command) {
+        String tripName = command.getTrip();
+        String accommodationName = command.getName();
+        Integer accommodationBudget = command.getBudget();
+        Trip trip = findTrip(tripName);
+
+        if (trip != null) {
+            trip.addAccommodation(accommodationName, accommodationBudget);
+            Ui.printAddAccommodationMessage(trip.getLastAccommodation());
+        } else {
+            Ui.printInvalidCommand();
+        }
     }
 
     private static void executeAddTransportation(TransportationCommand command) {
@@ -134,11 +147,11 @@ public class VoyaTrip {
 
         Trip trip = findTrip(tripName);
         if (trip == null) {
-            System.out.println("Trip " + tripName + " not found");
+            Ui.printTripNotFound();
         }
 
         trip.addTransportation(transportMode, transportName, transportBudget);
-        System.out.println("Adding transportation");
+        Ui.printAddTransportationMessage();
 
     }
 
@@ -153,7 +166,9 @@ public class VoyaTrip {
 
     private static void executeDeleteTrip(TripsCommand command) {
         try {
+            Trip deletedTrip = trips.get(command.getIndex() - 1);
             trips.remove(command.getIndex() - 1);
+            Ui.printDeleteTripMessage(deletedTrip.abbrInfo());
         } catch (IndexOutOfBoundsException e) {
             Ui.printIndexOutOfBounds();
         }
@@ -165,7 +180,20 @@ public class VoyaTrip {
     private static void executeDeleteAccommodation(Command command) {
     }
 
-    private static void executeDeleteTransportation(Command command) {
+    private static void executeDeleteTransportation(TransportationCommand command) {
+        String tripName = command.getTrip();
+        Integer transportIndex = command.getIndex();
+
+        try {
+            Trip trip = findTrip(tripName);
+            if (trip == null) {
+                throw new TripNotFoundException();
+            }
+            trip.deleteTransportation(transportIndex);
+            Ui.printDeleteTransportationMessage();
+        } catch (TripNotFoundException e) {
+            Ui.printTripNotFound();
+        }
     }
 
     private static void executeListTrip(Command command) {
