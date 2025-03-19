@@ -83,6 +83,9 @@ public class Trip {
         for (Transportation transportation : transportations) {
             tripInfo.append(transportation.toString()).append("\n");
         }
+        for (Accommodation accommodation : accommodations) {
+            tripInfo.append(accommodation.toString()).append("\n");
+        }
 
         return tripInfo.toString().trim();
     }
