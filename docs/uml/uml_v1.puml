@@ -1,12 +1,16 @@
 @startuml
-class VoyaTrip
-
-class Ui{
-    + run(): void
+class VoyaTrip {
++ {static} run(): void
 }
+
+class Ui
+
+class Message
 
 class Trip{
     - destination: String
+    - startDate: LocalDate
+    - endDate: LocalDate
     - totalBudget: Integer
     - numDays: Integer
     + Trip(destination: String, startDate: String, endDate: String, totalBudget: Integer)
@@ -45,8 +49,6 @@ class Transportation{
     + Transportation(mode: String, budget: Integer)
     + toString(){redefines toString()}: String
 }
-
-class LocalDate
 
 class Parser {
     - currentPage: String
@@ -133,20 +135,18 @@ exception InvalidCommand
 InvalidCommand -|> IOException
 
 VoyaTrip --> "*" Trip : - trips: ArrayList<Trip>
-VoyaTrip *- "1" Ui : -ui
+VoyaTrip *-- "1" Parser : -parser
+VoyaTrip *-- "1" Ui : -ui
 
-Ui --> "0..1" Command : -command
-Ui -> "*" Trip : - trips: ArrayList<Trip>
-(Ui, Command) .. Parser
+Ui ..> Message
 
+Parser --> Command : - command: Command
 Parser -- InvalidCommand : > throw
 AccommodationCommand -- InvalidCommand : > throw
 ItineraryCommand -- InvalidCommand : > throw
 TransportationCommand -- InvalidCommand : > throw
 TripCommand -- InvalidCommand : > throw
 
-Trip --> "1" LocalDate : - startDate
-Trip --> "1" LocalDate : - endDate
 Trip --> "0..numDays" Day : - itineraries: ArrayList<Day>
 Day --> "*" Activity : - activities: ArrayList<Activity>
 Trip --> "*" Accommodation : - accommodations: ArrayList<Accommodation>
