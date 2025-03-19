@@ -13,7 +13,6 @@ import voyatrip.command.types.ItineraryCommand;
 import voyatrip.command.types.TransportationCommand;
 import voyatrip.command.types.TripsCommand;
 import voyatrip.command.Parser;
-import voyatrip.ui.Message;
 import voyatrip.ui.Ui;
 
 import static voyatrip.command.types.CommandAction.EXIT;
