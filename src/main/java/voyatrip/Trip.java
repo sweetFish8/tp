@@ -70,23 +70,31 @@ public class Trip {
         return name + ": " + startDate + "->" + endDate + " (days: " + numDays + ", budget: " + totalBudget + ")";
     }
 
-    /**
-     * toString method for the Trip class
-     * <p>
-     * It prints the information of the trip and of its associated transportations and accomodations.
-     */
-    @Override
-    public String toString() {
-        StringBuilder tripInfo = new StringBuilder();
-        tripInfo.append(abbrInfo()).append("\n");
-
-        for (Transportation transportation : transportations) {
-            tripInfo.append(transportation.toString()).append("\n");
-        }
+    private void printAccomodationsInfo(StringBuilder tripInfo) {
         for (Accommodation accommodation : accommodations) {
             tripInfo.append(accommodation.toString()).append("\n");
         }
+    }
 
+    private void printTransportationsInfo(StringBuilder tripInfo) {
+        for (Transportation transportation : transportations) {
+            tripInfo.append(transportation.toString()).append("\n");
+        }
+    }
+
+    /**
+     * listTripInfo method for the Trip class
+     * <p>
+     * It prints the information of the trip and of its associated transportations and accomodations.
+     */
+
+    public String listTripInfo() {
+        toString();
+        StringBuilder tripInfo = new StringBuilder();
+        tripInfo.append(abbrInfo()).append("\n");
+
+        printTransportationsInfo(tripInfo);
+        printAccomodationsInfo(tripInfo);
         return tripInfo.toString().trim();
     }
 }
