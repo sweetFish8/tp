@@ -27,7 +27,7 @@ public class Ui {
     public static void printWelcomeMessage() {
         System.out.println(Message.WELCOME_MESSAGE);
     }
-  
+
     public void run() {
         while (!isExit) {
             handleInput(readInput());
@@ -179,7 +179,7 @@ public class Ui {
         }
     }
 
-    private void executeListTransportation(TransportationCommand command){
+    private void executeListTransportation(TransportationCommand command) {
 
     }
 
