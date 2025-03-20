@@ -8,7 +8,7 @@ class Ui
 class Message
 
 class Trip{
-    - destination: String
+    - name: String
     - startDate: LocalDate
     - endDate: LocalDate
     - totalBudget: Integer
@@ -17,9 +17,20 @@ class Trip{
     + addItinerary(day: Integer, name: String, budget: Integer): void
     + addAccommodation(name: String, budget: Integer): void
     + deleteAccommodation(index: Integer): void
+    + deleteAccommodation(name: String): void
     + addTransportation(mode: String, budget: Integer): void
     + deleteTransportation(index: Integer): void
+    + deleteTransportation(name: String): void
+    + abbrInfo(): String
     + toString(){redefines toString()}: String
+}
+
+class TripList{
+    + add(trip: Trip): void
+    + delete(index: Integer): void
+    + delete(name: String): void
+    + get(name: String): Trip
+    + listTrip(index: Integer): Trip
 }
 
 class Day{
@@ -50,17 +61,30 @@ class Transportation{
     + toString(){redefines toString()}: String
 }
 
+enum CommandTarget {
+    + TRIP
+    + ITINERARY
+    + DAY
+    + ACTIVITY
+    + ACCOMMODATION
+    + TRANSPORTATION
+}
+
+enum CommandAction {
+    + ADD,
+    + DELETE_BY_INDEX
+    + DELETE_BY_NAME
+    + LIST
+    + CHANGE_DIRECTORY
+    + EXIT
+}
+
 class Parser {
-    - currentPage: String
     - currentTrip: String
     + Parser()
-    + setCurrentPage(page: String): void
+    + setCurrentTarget(target: CommandTarget): void
     + setCurrentTrip(trip: String): void
     + parse(command: String): Command
-    - extractCommandArgument(command: String): String
-    - extractCommandAction(command: String): String
-    - extractCommandTargetType(command: String): String
-    - matchCommand(commandAction: String, commandTargetType: String, rawArgument: String): Command
 }
 
 abstract class Command {
@@ -68,9 +92,12 @@ abstract class Command {
     + Command(keyword: String)
     + getKeyword(): String
     + equals(Object o): Boolean
+    + getCommandAction(): CommandAction
+    + getCommandTarget(): CommandTarget
     # splitByDoubleHyphen(command: String): String[]
     # processRawArgument(rawArgument: String): void
     # matchArgument(argument: String): void {abstract}
+    # isInvalidArgument(argument: String): boolean {abstract}
 }
 
 class AccommodationCommand extends Command {
@@ -83,7 +110,6 @@ class AccommodationCommand extends Command {
     + getName(): String
     + getBudget(): Integer
     + getIndex(): Integer
-    # matchArgument(argument: String): void
 }
 
 class TransportationCommand extends Command {
@@ -98,7 +124,6 @@ class TransportationCommand extends Command {
     + getMode(): String
     + getBudget(): Integer
     + getIndex(): Integer
-    # matchArgument(argument: String): void
 }
 
 class ItineraryCommand extends Command {
@@ -113,7 +138,6 @@ class ItineraryCommand extends Command {
     + getTime(): String
     + getBudget(): Integer
     + getDay(): Integer
-    # matchArgument(argument: String): void
 }
 
 class TripCommand extends Command {
@@ -134,14 +158,19 @@ exception InvalidCommand
 
 InvalidCommand -|> IOException
 
-VoyaTrip --> "*" Trip : - trips: ArrayList<Trip>
-VoyaTrip *-- "1" Parser : -parser
-VoyaTrip *-- "1" Ui : -ui
+TripList <- "1" VoyaTrip : - trips
 
-Ui ..> Message
+TripList --> "*" Trip : - trips: ArrayList<Trip>
+VoyaTrip *-right- "1" Parser : -parser
+VoyaTrip *-down- "1" Ui : -ui
 
-Parser --> Command : - command: Command
+Ui .> Message
+
+Parser -up-> CommandTarget: - currentTarget: CommandTarget
+Parser -> Command : - command: Command
 Parser -- InvalidCommand : > throw
+Command -up-> CommandTarget: - commandTarget: CommandTarget
+Command -up-> CommandAction: - commandAction: CommandAction
 AccommodationCommand -- InvalidCommand : > throw
 ItineraryCommand -- InvalidCommand : > throw
 TransportationCommand -- InvalidCommand : > throw
