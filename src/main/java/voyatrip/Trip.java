@@ -72,8 +72,8 @@ public class Trip {
     public void deleteTransportation(String transportName) throws InvalidCommand {
         for (Transportation transportation : transportations) {
             if (transportation.getName().equals(transportName)) {
+                Ui.printDeleteTransportationMessage(transportation);
                 transportations.remove(transportation);
-                Ui.printDeleteTransportationMessage();
                 return;
             }
         }
