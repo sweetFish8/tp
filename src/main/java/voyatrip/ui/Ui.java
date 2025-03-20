@@ -1,6 +1,7 @@
 package voyatrip.ui;
 
 import voyatrip.Accommodation;
+import voyatrip.command.Parser;
 
 public class Ui {
     public static void printWelcomeMessage() {
@@ -9,6 +10,11 @@ public class Ui {
 
     public static void printGoodbyeMessage() {
         System.out.println(Message.GOODBYE_MESSAGE);
+    }
+
+    public static void printCurrentPath(Parser parser) {
+        System.out.println();
+        System.out.println(parser.getCurrentPath());
     }
 
     public static void printAddTripMessage(String abbrTripInfo) {
