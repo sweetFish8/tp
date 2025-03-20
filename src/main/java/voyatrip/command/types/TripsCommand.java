@@ -36,12 +36,12 @@ public class TripsCommand extends Command {
     protected void processRawArgument(String rawArgument) throws InvalidCommand {
         super.processRawArgument(rawArgument);
 
-        if (isInvalidCommand()) {
-            throw new InvalidCommand();
-        }
-
         if (startDate != null) {
             numDay = Math.toIntExact(ChronoUnit.DAYS.between(startDate, endDate) + 1);
+        }
+
+        if (commandAction == CommandAction.DELETE_BY_INDEX && name != null) {
+            super.setCommandAction(CommandAction.DELETE_BY_NAME);
         }
     }
 
@@ -77,7 +77,8 @@ public class TripsCommand extends Command {
         }
     }
 
-    private boolean isInvalidCommand() {
+    @Override
+    protected boolean isInvalidCommand() {
         boolean isInvalidName = name == null || Arrays.asList(INVALID_NAMES).contains(name);
         boolean isInvalidDate = startDate == null || endDate == null || startDate.isAfter(endDate);
         boolean isInvalidAdd = isInvalidName || isInvalidDate || totalBudget == null;
@@ -85,7 +86,7 @@ public class TripsCommand extends Command {
 
         return switch (commandAction) {
         case ADD -> isInvalidAdd;
-        case DELETE -> isInvalidDelete;
+        case DELETE_BY_INDEX, DELETE_BY_NAME -> isInvalidDelete;
         case LIST, CHANGE_DIRECTORY -> isInvalidName;
         case EXIT -> false;
         default -> true;

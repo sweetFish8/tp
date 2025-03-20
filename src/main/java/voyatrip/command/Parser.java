@@ -83,7 +83,7 @@ public class Parser {
         }
         return switch (commandAction) {
         case "add", "a", "make", "mk" -> CommandAction.ADD;
-        case "delete", "d", "remove", "rm" -> CommandAction.DELETE;
+        case "delete", "d", "remove", "rm" -> CommandAction.DELETE_BY_INDEX;
         case "list", "l" -> CommandAction.LIST;
         case "cd" -> CommandAction.CHANGE_DIRECTORY;
         case "exit", "quit", "bye" -> CommandAction.EXIT;

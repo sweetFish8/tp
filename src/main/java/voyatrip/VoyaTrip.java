@@ -73,10 +73,11 @@ public class VoyaTrip {
         }
     }
 
-    private static void handleTrip(TripsCommand command) throws InvalidCommand{
+    private static void handleTrip(TripsCommand command) throws InvalidCommand, TripNotFoundException {
         switch (command.getCommandAction()) {
         case ADD -> executeAddTrip(command);
-        case DELETE -> executeDeleteTrip(command);
+        case DELETE_BY_INDEX -> executeDeleteTripByIndex(command);
+        case DELETE_BY_NAME -> executeDeleteTripByName(command);
         case LIST -> executeListTrip(command);
         default -> throw new InvalidCommand();
         }
@@ -93,7 +94,7 @@ public class VoyaTrip {
     private static void handleActivity(ItineraryCommand command) throws InvalidCommand, TripNotFoundException {
         switch (command.getCommandAction()) {
         case ADD -> executeAddActivity(command);
-        case DELETE -> executeDeleteActivity(command);
+        case DELETE_BY_INDEX -> executeDeleteActivity(command);
         default -> throw new InvalidCommand();
         }
     }
@@ -102,7 +103,8 @@ public class VoyaTrip {
             throws InvalidCommand, TripNotFoundException {
         switch (command.getCommandAction()) {
         case ADD -> executeAddAccommodation(command);
-        case DELETE -> executeDeleteAccommodation(command);
+        case DELETE_BY_INDEX -> executeDeleteAccommodationByIndex(command);
+        case DELETE_BY_NAME -> executeDeleteAccommodationByName(command);
         case LIST -> executeListAccommodation(command);
         default -> throw new InvalidCommand();
         }
@@ -112,7 +114,8 @@ public class VoyaTrip {
             throws InvalidCommand, TripNotFoundException {
         switch (command.getCommandAction()) {
         case ADD -> executeAddTransportation(command);
-        case DELETE -> executeDeleteTransportation(command);
+        case DELETE_BY_INDEX -> executeDeleteTransportationByIndex(command);
+        case DELETE_BY_NAME -> executeDeleteTransportationByName(command);
         case LIST -> executeListTransportation(command);
         default -> throw new InvalidCommand();
         }
@@ -143,21 +146,35 @@ public class VoyaTrip {
         trips.get(command.getTrip()).addTransportation(command.getName(), command.getMode(), command.getBudget());
     }
 
-    private static void executeDeleteTrip(TripsCommand command) throws InvalidCommand {
+    private static void executeDeleteTripByIndex(TripsCommand command) throws InvalidCommand {
         trips.delete(command.getIndex());
+    }
+
+    private static void executeDeleteTripByName(TripsCommand command) throws TripNotFoundException {
+        trips.delete(command.getName());
     }
 
     private static void executeDeleteActivity(Command command) {
     }
 
-    private static void executeDeleteAccommodation(AccommodationCommand command)
+    private static void executeDeleteAccommodationByIndex(AccommodationCommand command)
             throws InvalidCommand, TripNotFoundException {
         trips.get(command.getTrip()).deleteAccommodation(command.getIndex());
     }
 
-    private static void executeDeleteTransportation(TransportationCommand command)
+    private static void executeDeleteAccommodationByName(AccommodationCommand command)
+            throws InvalidCommand, TripNotFoundException {
+        trips.get(command.getTrip()).deleteAccommodation(command.getName());
+    }
+
+    private static void executeDeleteTransportationByIndex(TransportationCommand command)
             throws InvalidCommand, TripNotFoundException {
         trips.get(command.getName()).deleteTransportation(command.getIndex());
+    }
+
+    private static void executeDeleteTransportationByName(TransportationCommand command)
+            throws InvalidCommand, TripNotFoundException {
+        trips.get(command.getName()).deleteTransportation(command.getName());
     }
 
     private static void executeListTrip(TripsCommand command) {
