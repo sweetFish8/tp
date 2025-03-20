@@ -42,6 +42,11 @@ public class TripList {
         }
     }
 
+    public void delete(String name) throws TripNotFoundException {
+        Ui.printDeleteTripMessage(get(name).abbrInfo());
+        trips.remove(get(name));
+    }
+
     public Trip get(String name) throws TripNotFoundException {
         for (Trip trip : trips) {
             if (trip.getName().equals(name)) {

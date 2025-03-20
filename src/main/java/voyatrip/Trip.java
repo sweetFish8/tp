@@ -67,6 +67,17 @@ public class Trip {
         }
     }
 
+    public void deleteTransportation(String transportName) throws InvalidCommand {
+        for (Transportation transportation : transportations) {
+            if (transportation.getName().equals(transportName)) {
+                transportations.remove(transportation);
+                Ui.printDeleteTransportationMessage();
+                return;
+            }
+        }
+        throw new InvalidCommand();
+    }
+
     public void addAccommodation(String accommodationName, Integer accommodationBudget) throws InvalidCommand {
         if (isContainsAccommodation(accommodationName)) {
             throw new InvalidCommand();
@@ -92,6 +103,17 @@ public class Trip {
         } catch (IndexOutOfBoundsException e) {
             throw new InvalidCommand();
         }
+    }
+
+    public void deleteAccommodation(String accommodationName) throws InvalidCommand {
+        for (Accommodation accommodation : accommodations) {
+            if (accommodation.getName().equals(accommodationName)) {
+                accommodations.remove(accommodation);
+                Ui.printDeleteAccommodationMessage(accommodation);
+                return;
+            }
+        }
+        throw new InvalidCommand();
     }
 
     public String abbrInfo() {
