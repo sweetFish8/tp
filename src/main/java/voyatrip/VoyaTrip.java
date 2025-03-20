@@ -138,7 +138,7 @@ public class VoyaTrip {
     }
 
     private static void executeDeleteTrip(TripsCommand command) throws InvalidCommand {
-        trips.delete(command.getIndex() - 1);
+        trips.delete(command.getIndex());
     }
 
     private static void executeDeleteActivity(Command command) {
