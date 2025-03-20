@@ -32,6 +32,7 @@ public class Trip {
         this.endDate = endDate;
         this.numDays = numDays;
         this.totalBudget = totalBudget;
+        this.transportations = new ArrayList<>();
         this.accommodations = new ArrayList<>();
     }
 
@@ -45,8 +46,9 @@ public class Trip {
         if (isContainsTransportation(transportMode)) {
             throw new InvalidCommand();
         }
-        transportations.add(new Transportation(transportName, transportMode, transportBudget));
-        Ui.printAddTransportationMessage();
+        Transportation newTransportation = new Transportation(transportName, transportMode, transportBudget);
+        transportations.add(newTransportation);
+        Ui.printAddTransportationMessage(newTransportation);
     }
 
     private boolean isContainsTransportation(String transportName) {
@@ -60,8 +62,8 @@ public class Trip {
 
     public void deleteTransportation(Integer index) throws InvalidCommand {
         try {
+            Ui.printDeleteTransportationMessage(transportations.get(index - 1));
             transportations.remove(index - 1);
-            Ui.printDeleteTransportationMessage();
         } catch (IndexOutOfBoundsException e) {
             throw new InvalidCommand();
         }
