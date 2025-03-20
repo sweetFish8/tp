@@ -16,6 +16,9 @@ import voyatrip.ui.Ui;
 
 import static voyatrip.command.types.CommandAction.EXIT;
 
+/**
+ * This is the main class for the VoyaTrip application.
+ */
 public class VoyaTrip {
     private static final Parser parser = new Parser();
     private static final Scanner in = new Scanner(System.in);
@@ -26,6 +29,10 @@ public class VoyaTrip {
         run();
     }
 
+    /**
+     * This is the main loop for the VoyaTrip application.
+     * It will keep running until the user exits the application
+     */
     private static void run() {
         Ui.printWelcomeMessage();
         while (!isExit) {
