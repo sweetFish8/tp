@@ -4,6 +4,9 @@ import java.util.ArrayList;
 
 import java.time.LocalDate;
 
+import voyatrip.command.exceptions.InvalidCommand;
+import voyatrip.ui.Ui;
+
 /**
  * This is the trip class that will hold all the information about the trip.
  */
@@ -20,12 +23,14 @@ public class Trip {
      * Constructor for the trip class.
      * @param startDate the start date of the trip.
      * @param endDate the end date of the trip.
+     * @param numDays the number of days for the trip.
      * @param totalBudget the total budget for the trip.
      */
-    public Trip(String name, LocalDate startDate, LocalDate endDate, Integer totalBudget) {
+    public Trip(String name, LocalDate startDate, LocalDate endDate, Integer numDays, Integer totalBudget) {
         this.name = name;
         this.startDate = startDate;
         this.endDate = endDate;
+        this.numDays = numDays;
         this.totalBudget = totalBudget;
         this.accommodations = new ArrayList<>();
     }
@@ -34,37 +39,75 @@ public class Trip {
         return name;
     }
 
-    public void addTransportation(String transportMode, String transportName, Integer transportBudget) {
-        transportations.add(new Transportation(transportMode, transportName, transportBudget));
-    }
-
-    public void deleteTransportation(Integer index) {
-        if (index < 1 || index > transportations.size()) {
-            System.out.println("Invalid index: " + index);
-            return;
+    public void addTransportation(String transportName,
+                                  String transportMode,
+                                  Integer transportBudget) throws InvalidCommand {
+        if (isContainsTransportation(transportMode)) {
+            throw new InvalidCommand();
         }
-        transportations.remove(index - 1);
-        // index - 1, to convert to zero-based index
+        transportations.add(new Transportation(transportName, transportMode, transportBudget));
+        Ui.printAddTransportationMessage();
     }
 
-    public void addAccommodation(String accommodationName, Integer accommodationBudget) {
-        accommodations.add(new Accommodation(accommodationName, accommodationBudget));
+    private boolean isContainsTransportation(String transportName) {
+        for (Transportation transportation : transportations) {
+            if (transportation.getName().equals(transportName)) {
+                return true;
+            }
+        }
+        return false;
     }
 
-    public void deleteAccommodation(Integer index) {
-        accommodations.remove(index - 1);
+    public void deleteTransportation(Integer index) throws InvalidCommand {
+        try {
+            transportations.remove(index - 1);
+            Ui.printDeleteTransportationMessage();
+        } catch (IndexOutOfBoundsException e) {
+            throw new InvalidCommand();
+        }
     }
 
-    public Accommodation getAccommodation(Integer index) {
-        return accommodations.get(index - 1);
+    public void addAccommodation(String accommodationName, Integer accommodationBudget) throws InvalidCommand {
+        if (isContainsAccommodation(accommodationName)) {
+            throw new InvalidCommand();
+        }
+        Accommodation newAccommodation = new Accommodation(accommodationName, accommodationBudget);
+        accommodations.add(newAccommodation);
+        Ui.printAddAccommodationMessage(newAccommodation);
     }
 
-    public Accommodation getLastAccommodation() {
-        return accommodations.get(accommodations.size() - 1);
+    private boolean isContainsAccommodation(String accommodationName) {
+        for (Accommodation accommodation : accommodations) {
+            if (accommodation.getName().equals(accommodationName)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public void deleteAccommodation(Integer index) throws InvalidCommand {
+        try {
+            Ui.printDeleteAccommodationMessage(accommodations.get(index - 1));
+            accommodations.remove(index - 1);
+        } catch (IndexOutOfBoundsException e) {
+            throw new InvalidCommand();
+        }
     }
 
     public String abbrInfo() {
         return name + ": " + startDate + "->" + endDate + " (days: " + numDays + ", budget: " + totalBudget + ")";
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (obj.getClass() != this.getClass()) {
+            return false;
+        }
+
+        return this.name.equals(((Trip) obj).name);
     }
 }
 
