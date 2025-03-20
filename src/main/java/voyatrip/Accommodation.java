@@ -27,6 +27,6 @@ public class Accommodation {
 
     @Override
     public String toString() {
-        return "Accommodation: " + name + " (budget: " + budget + ")";
+        return "Accommodation at " + name + " with budget $" + budget;
     }
 }
