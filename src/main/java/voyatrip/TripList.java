@@ -55,4 +55,12 @@ public class TripList {
         }
         throw new TripNotFoundException();
     }
+
+    public void listTrip(Integer index) {
+        try {
+            System.out.println(trips.get(index - 1));
+        } catch (IndexOutOfBoundsException e) {
+            Ui.printIndexOutOfBounds();
+        }
+    }
 }

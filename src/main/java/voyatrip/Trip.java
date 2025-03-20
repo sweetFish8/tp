@@ -131,5 +131,33 @@ public class Trip {
 
         return this.name.equals(((Trip) obj).name);
     }
+
+    private void buildAccommodationsInfo(StringBuilder tripInfo) {
+        for (Accommodation accommodation : accommodations) {
+            tripInfo.append(accommodation.toString()).append("\n");
+        }
+    }
+
+    private void buildTransportationsInfo(StringBuilder tripInfo) {
+        for (Transportation transportation : transportations) {
+            tripInfo.append(transportation.toString()).append("\n");
+        }
+    }
+
+    /**
+     * This is a method to print the trip information.
+     * @return String representation of the trip, and its associated transportations and accommodations.
+     */
+    @Override
+    public String toString() {
+        StringBuilder tripInfo = new StringBuilder();
+        tripInfo.append(abbrInfo()).append("\n");
+
+        tripInfo.append("Transportations:\n");
+        buildTransportationsInfo(tripInfo);
+        tripInfo.append("Accommodations:\n");
+        buildAccommodationsInfo(tripInfo);
+        return tripInfo.toString().trim();
+    }
 }
 
