@@ -29,7 +29,9 @@ class TripList{
     + add(trip: Trip): void
     + delete(index: Integer): void
     + delete(name: String): void
+    + get(index: Integer): Trip
     + get(name: String): Trip
+    + isContains(name: String): boolean
     + listTrip(index: Integer): Trip
 }
 
@@ -76,6 +78,8 @@ enum CommandAction {
     + DELETE_BY_NAME
     + LIST
     + CHANGE_DIRECTORY
+    + CHANGE_TRIP_BY_INDEX
+    + CHANGE_TRIP_BY_NAME
     + EXIT
 }
 
@@ -84,6 +88,7 @@ class Parser {
     + Parser()
     + setCurrentTarget(target: CommandTarget): void
     + setCurrentTrip(trip: String): void
+    + getCurrentPath(): String
     + parse(command: String): Command
 }
 
@@ -141,6 +146,7 @@ class ItineraryCommand extends Command {
 }
 
 class TripCommand extends Command {
+    - INVALID_NAMES: ArrayList<String> {static}
     - trip: String
     - name: String
     - budget: Integer
