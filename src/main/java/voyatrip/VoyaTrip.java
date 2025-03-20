@@ -180,7 +180,8 @@ public class VoyaTrip {
         trips.get(command.getName()).deleteTransportation(command.getName());
     }
 
-    private static void executeListTrip(Command command) {
+    private static void executeListTrip(TripsCommand command) {
+        trips.listTrip(command.getIndex());
     }
 
     private static void executeListItinerary(Command command) {

@@ -37,6 +37,6 @@ public class Transportation {
 
     @Override
     public String toString() {
-        return "Transportation" + "by " + mode + " " + name + " with budget " + budget;
+        return "Transportation by " + mode + " " + name + " with budget $" + budget;
     }
 }

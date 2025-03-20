@@ -63,4 +63,12 @@ public class TripList {
             throw new InvalidCommand();
         }
     }
+
+    public void listTrip(Integer index) {
+        try {
+            System.out.println(trips.get(index - 1));
+        } catch (IndexOutOfBoundsException e) {
+            Ui.printIndexOutOfBounds();
+        }
+    }
 }

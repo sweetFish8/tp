@@ -32,6 +32,7 @@ public class Trip {
         this.endDate = endDate;
         this.numDays = numDays;
         this.totalBudget = totalBudget;
+        this.transportations = new ArrayList<>();
         this.accommodations = new ArrayList<>();
     }
 
@@ -45,8 +46,9 @@ public class Trip {
         if (isContainsTransportation(transportMode)) {
             throw new InvalidCommand();
         }
-        transportations.add(new Transportation(transportName, transportMode, transportBudget));
-        Ui.printAddTransportationMessage();
+        Transportation newTransportation = new Transportation(transportName, transportMode, transportBudget);
+        transportations.add(newTransportation);
+        Ui.printAddTransportationMessage(newTransportation);
     }
 
     private boolean isContainsTransportation(String transportName) {
@@ -60,8 +62,8 @@ public class Trip {
 
     public void deleteTransportation(Integer index) throws InvalidCommand {
         try {
+            Ui.printDeleteTransportationMessage(transportations.get(index - 1));
             transportations.remove(index - 1);
-            Ui.printDeleteTransportationMessage();
         } catch (IndexOutOfBoundsException e) {
             throw new InvalidCommand();
         }
@@ -130,6 +132,34 @@ public class Trip {
         }
 
         return this.name.equals(((Trip) obj).name);
+    }
+
+    private void buildAccommodationsInfo(StringBuilder tripInfo) {
+        for (Accommodation accommodation : accommodations) {
+            tripInfo.append(accommodation.toString()).append("\n");
+        }
+    }
+
+    private void buildTransportationsInfo(StringBuilder tripInfo) {
+        for (Transportation transportation : transportations) {
+            tripInfo.append(transportation.toString()).append("\n");
+        }
+    }
+
+    /**
+     * This is a method to print the trip information.
+     * @return String representation of the trip, and its associated transportations and accommodations.
+     */
+    @Override
+    public String toString() {
+        StringBuilder tripInfo = new StringBuilder();
+        tripInfo.append(abbrInfo()).append("\n");
+
+        tripInfo.append("Transportations:\n");
+        buildTransportationsInfo(tripInfo);
+        tripInfo.append("Accommodations:\n");
+        buildAccommodationsInfo(tripInfo);
+        return tripInfo.toString().trim();
     }
 }
 
