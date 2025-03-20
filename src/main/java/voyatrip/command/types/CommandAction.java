@@ -6,5 +6,7 @@ public enum CommandAction {
     DELETE_BY_NAME,
     LIST,
     CHANGE_DIRECTORY,
+    CHANGE_TRIP_BY_INDEX,
+    CHANGE_TRIP_BY_NAME,
     EXIT
 }

@@ -24,7 +24,7 @@ public class TripList {
         Ui.printAddTripMessage(newTrip.abbrInfo());
     }
 
-    private boolean isContains(String name) {
+    public boolean isContains(String name) {
         for (Trip trip : trips) {
             if (trip.getName().equals(name)) {
                 return true;
@@ -54,6 +54,14 @@ public class TripList {
             }
         }
         throw new TripNotFoundException();
+    }
+
+    public Trip get(Integer index) throws InvalidCommand {
+        try {
+            return trips.get(index - 1);
+        } catch (IndexOutOfBoundsException e) {
+            throw new InvalidCommand();
+        }
     }
 
     public void listTrip(Integer index) {
