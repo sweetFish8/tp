@@ -43,6 +43,6 @@ class VoyaTripTest {
         // Verify the output
         String expectedOutput = Message.getWelcomeMessage() + "\n"
                 + Message.getGoodbyeMessage();
-        assertEquals(expectedOutput, outContent.toString().trim());
+        assertEquals(expectedOutput, outContent.toString().trim().replace("\r\n", "\n"));
     }
 }
