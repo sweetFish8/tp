@@ -3,6 +3,9 @@ package voyatrip.ui;
 import voyatrip.Accommodation;
 import voyatrip.command.Parser;
 
+/**
+ * This class contains all the methods to access the user interface messages that will be displayed to the user.
+ */
 public class Ui {
     public static void printWelcomeMessage() {
         System.out.println(Message.WELCOME_MESSAGE);
