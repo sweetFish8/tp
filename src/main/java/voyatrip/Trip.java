@@ -18,6 +18,7 @@ public class Trip {
     private Integer numDays;
     private ArrayList<Transportation> transportations;
     private ArrayList<Accommodation> accommodations;
+    private ArrayList<Day> itinerary;
 
     /**
      * Constructor for the trip class.
@@ -34,6 +35,7 @@ public class Trip {
         this.totalBudget = totalBudget;
         this.transportations = new ArrayList<>();
         this.accommodations = new ArrayList<>();
+        this.itinerary = new ArrayList<>();
     }
 
     public String getName() {
@@ -116,6 +118,16 @@ public class Trip {
             }
         }
         throw new InvalidCommand();
+    }
+
+    public void addActivity(Integer day, String name, String time) {
+        try {
+            Activity newActivity = new Activity(name, time);
+            itinerary.get(day - 1).addActivity(newActivity);
+            Ui.printAddActivityMessage(newActivity);
+        } catch (IndexOutOfBoundsException e) {
+            Ui.printIndexOutOfBounds();
+        }
     }
 
     public String abbrInfo() {

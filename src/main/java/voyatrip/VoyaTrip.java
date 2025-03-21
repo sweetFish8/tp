@@ -136,7 +136,8 @@ public class VoyaTrip {
                 command.getTotalBudget());
     }
 
-    private static void executeAddActivity(Command command) {
+    private static void executeAddActivity(ItineraryCommand command) throws TripNotFoundException {
+        trips.get(command.getTrip()).addActivity(command.getDay(), command.getName(), command.getTime());
     }
 
     private static void executeAddAccommodation(AccommodationCommand command)
