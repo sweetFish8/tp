@@ -18,6 +18,7 @@ public class Trip {
     private Integer numDays;
     private ArrayList<Transportation> transportations;
     private ArrayList<Accommodation> accommodations;
+    private ArrayList<Day> itinerary;
 
     /**
      * Constructor for the trip class.
@@ -34,6 +35,12 @@ public class Trip {
         this.totalBudget = totalBudget;
         this.transportations = new ArrayList<>();
         this.accommodations = new ArrayList<>();
+        this.itinerary = new ArrayList<>();
+
+        Integer budgetPerDay = totalBudget / numDays;
+        for (int i = 0; i < numDays; i++) {
+            itinerary.add(new Day(budgetPerDay));
+        }
     }
 
     public String getName() {
@@ -118,6 +125,16 @@ public class Trip {
         throw new InvalidCommand();
     }
 
+    public void addActivity(Integer day, String name, String time) {
+        try {
+            Activity newActivity = new Activity(name, time);
+            itinerary.get(day - 1).addActivity(newActivity);
+            Ui.printAddActivityMessage(newActivity);
+        } catch (IndexOutOfBoundsException e) {
+            Ui.printIndexOutOfBounds();
+        }
+    }
+
     public String abbrInfo() {
         return name + ": " + startDate + "->" + endDate + " (days: " + numDays + ", budget: " + totalBudget + ")";
     }
@@ -146,6 +163,12 @@ public class Trip {
         }
     }
 
+    public void buildItineraryInfo(StringBuilder tripInfo) {
+        for (Day day: itinerary) {
+            tripInfo.append(day.toString()).append("\n");
+        }
+    }
+
     /**
      * This is a method to print the trip information.
      * @return String representation of the trip, and its associated transportations and accommodations.
@@ -155,6 +178,8 @@ public class Trip {
         StringBuilder tripInfo = new StringBuilder();
         tripInfo.append(abbrInfo()).append("\n");
 
+        tripInfo.append("Itinerary:\n");
+        buildItineraryInfo(tripInfo);
         tripInfo.append("Transportations:\n");
         buildTransportationsInfo(tripInfo);
         tripInfo.append("Accommodations:\n");
