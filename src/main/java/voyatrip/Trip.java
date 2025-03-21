@@ -158,6 +158,12 @@ public class Trip {
         }
     }
 
+    public void buildItineraryInfo(StringBuilder tripInfo) {
+        for (Day day: itinerary) {
+            tripInfo.append(day.toString()).append("\n");
+        }
+    }
+
     /**
      * This is a method to print the trip information.
      * @return String representation of the trip, and its associated transportations and accommodations.
@@ -167,6 +173,8 @@ public class Trip {
         StringBuilder tripInfo = new StringBuilder();
         tripInfo.append(abbrInfo()).append("\n");
 
+        tripInfo.append("Itinerary:\n");
+        buildItineraryInfo(tripInfo);
         tripInfo.append("Transportations:\n");
         buildTransportationsInfo(tripInfo);
         tripInfo.append("Accommodations:\n");
