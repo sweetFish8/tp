@@ -36,6 +36,11 @@ public class Trip {
         this.transportations = new ArrayList<>();
         this.accommodations = new ArrayList<>();
         this.itinerary = new ArrayList<>();
+
+        Integer budgetPerDay = totalBudget / numDays;
+        for (int i = 0; i < numDays; i++) {
+            itinerary.add(new Day(budgetPerDay));
+        }
     }
 
     public String getName() {
