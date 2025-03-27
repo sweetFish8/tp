@@ -29,7 +29,7 @@ test {
 }
 
 application {
-    mainClass.set("VoyaTrip.voyaTrip")
+    mainClass.set("voyatrip.VoyaTrip")
 }
 
 shadowJar {
@@ -43,4 +43,8 @@ checkstyle {
 
 run{
     standardInput = System.in
+}
+
+run {
+    enableAssertions = true
 }
